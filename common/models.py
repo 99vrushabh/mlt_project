@@ -22,6 +22,11 @@ class new_store(db.Model):
 
 
 
+class Product(db.Model):
+    __tablename__ = 'product'
 
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    price = Column(Float, nullable=False)
 
     
