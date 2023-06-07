@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Float, Integer, String
 from common.database import db
 
 class Signup(UserMixin,db.Model):

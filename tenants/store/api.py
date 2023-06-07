@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, current_app, redirect, render_template, request
 from flask_login import login_required
 import psycopg2
 from common.database import db
@@ -16,46 +16,48 @@ def store_home():
 @store.route('/add_new', methods=['GET', 'POST'])
 def add_new():
     if request.method == 'POST':
-        new_one=new_store(sname = request.form.get('sname'),  
-        semail = request.form.get('semail'),
-        spassword = request.form.get('spassword') ) 
-        sname=request.form.get('sname')
+        sname = request.form.get('sname')
+        semail = request.form.get('semail')
+        spassword = request.form.get('spassword')
+        # add to new_store 'table'
+        new_one = new_store(sname=sname, semail=semail, spassword=spassword)
+
         conn = psycopg2.connect('postgresql://postgres:postgres@localhost:5432/postgres')
         cursor = conn.cursor()
+        
         try:
-            cursor.execute(f'CREATE SCHEMA IF NOT EXISTS {sname.lower().replace(" ","_")};')
+            # Create the store-specific schema
+            # its convert snmae into lower case and place _ inplace of blanc
+            schemas = sname.lower().replace(" ", "_")
+
+            #this cursor execute a schema for the database
+            cursor.execute(f'CREATE SCHEMA IF NOT EXISTS {schemas};')
+            
+            # Set the search path to the store-specific schema
+            cursor.execute(f'SET search_path TO {schemas};')
+            
+            # Create the Product table whene schema createdd
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS product (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(50) NOT NULL,
+                    price FLOAT NOT NULL
+                );
+            ''')
+            
             db.session.add(new_one)
-            db.session.commit()   
+            db.session.commit()
             conn.commit()
+            
             return redirect('home')
+        # next steps will shows an erro with sql
         except Exception as e:
             conn.rollback()
             return str(e)
+        
+        # here end cursor
         finally:
             cursor.close()
             conn.close()
+    
     return render_template('store/add_new.html')
-
-@store.route("/create_all")
-def create_db():
-    conn = psycopg2.connect('postgresql://postgres:postgres@localhost:5432/postgres')
-    cursor=conn.cursor()
-    breakpoint()
-    cursor.execute('SELECT sname from .schema')
-    schemas=cursor.fetchall()
-    for schema in schemas:
-        try:
-            cursor.execute("SET search_path TO %s", (schema[0],))
-            # Create the product table
-            cursor.execute("CREATE TABLE IF NOT EXISTS products (id SERIAL PRIMARY KEY, name VARCHAR(255), price DECIMAL(10, 2))")
-            # Create the order table
-            cursor.execute("CREATE TABLE IF NOT EXISTS orders (id SERIAL PRIMARY KEY, product_id INTEGER REFERENCES products(id), quantity INTEGER)")
-
-            db.commit()
-        except Exception as e:
-            # Handle any exceptions or errors
-            print(f"Error creating tables in schema {schema[0]}: {str(e)}")
-            db.rollback()
-
-    cursor.close()
-    db.close()
