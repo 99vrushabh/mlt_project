@@ -54,14 +54,13 @@ def add_new():
     
     return render_template('store/add_new.html')
 
-@store.route('/add_field/', methods=['GET', 'POST'])
+@store.route('/add_field', methods=['GET', 'POST'])
 def add_field():
     if request.method == 'POST':
         new_field1 = request.form.get('new_field1')
         new_field2 = request.form.get('new_field2')
         new_field3 = request.form.get('new_field3')
         sname = request.form.get('sname')
-        
         try:
             schemas = sname.lower().replace(" ", "_")
             Session = sessionmaker(bind=db.engine)
@@ -76,14 +75,8 @@ def add_field():
         finally:
             session.close()
         
-    return render_template('admin/customize.html')
+    return render_template('admin/customize.html')   
 
-
-
-
-
-
-
-
-
-   
+@store.route('/menu')
+def menu():
+    return render_template('store/menu.html')
