@@ -27,6 +27,9 @@ class Product(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
+    field1 =Column(String(100),nullable=False)
+    field2 =Column(String(100),nullable=True)
+    field3 =Column(String(100),nullable=True)
     price = Column(Float, nullable=False)
 
     

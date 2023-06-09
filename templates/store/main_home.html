@@ -8,8 +8,8 @@
       content="width=device-width,
 				initial-scale=1.0"
     />
-    <title>choosecafe</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
     <link rel="stylesheet" href="responsive.css" />
   </head>
 
@@ -17,7 +17,7 @@
     <!-- for header part -->
     <header>
       <div class="logosec">
-        <div class="logo">Hello</div>
+        <div class="logo">Home</div>
         <img
           src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
           class="icn menuicn"
@@ -45,12 +45,11 @@
           alt=""
         />
         <div class="dp">
-          <a href="/profile">
-            <img
-              src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
-              class="dpicn"
-              alt="dp"
-          /></a>
+          <img
+            src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+            class="dpicn"
+            alt="dp"
+          />
         </div>
       </div>
     </header>
@@ -65,21 +64,19 @@
                 class="nav-img"
                 alt="dashboard"
               />
-              <h3>Dashboard</h3>
+              <a href="/home" style="text-decoration: none; color: aliceblue">
+                <h3>Dashboard</h3></a
+              >
             </div>
-
-            <div class="option2 nav-option">
+            <div class="nav-option option1">
               <img
-                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
+                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
                 class="nav-img"
-                alt="articles"
               />
-              <a href="/add_new">
-              <h3>Store</h3></a>
+              <a href="/add_new" style="text-decoration: none; color: aliceblue">
+                <h3>Store</h3></a
+              >
             </div>
-
-          
-
             <div class="nav-option option5">
               <img
                 src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
@@ -104,7 +101,7 @@
                 class="nav-img"
                 alt="logout"
               />
-              <h3>Logout</h3>
+              <a href="/logout"> <h3>Logout</h3> </a>
             </div>
           </div>
         </nav>
@@ -184,23 +181,21 @@
               <h3 class="t-op">Comments</h3>
               <h3 class="t-op">Status</h3>
             </div>
-
             {% for i in add %}
             <div class="items">
               <div class="item1">
                 <h3 class="t-op-nextlvl">{{i.sname}}</h3>
                 <h3 class="t-op-nextlvl">2.9k</h3>
                 <h3 class="t-op-nextlvl">210</h3>
-                <h3 class="t-op-nextlvl label-tag">Running</h3>
+                <h3 class="t-op-nextlvl label-tag">Published</h3>
               </div>
               {% endfor %}
-             
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="./index.js"></script>
+    <script src="static/index.js"></script>
   </body>
 </html>

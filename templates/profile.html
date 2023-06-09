@@ -8,24 +8,14 @@
     <title>Starbucks</title>
   </head>
   <body>
-    {% with messages = get_flashed_messages() %}  
-         {% if messages %}  
-               {% for message in messages %}  
-                    <p style=" padding: 20px;
-                    background-color: green;
-                    color: white;"> {{ message }}</p>  
-               {% endfor %}  
-         {% endif %}  
-      {% endwith %}  
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <p style="padding: 20px; background-color: green; color: white">
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %} {% endwith %}
     <div class="profile_page">
-      <div class="Signup_header">
-        <a href="/home">
-          <img
-            src="https://commoditytrading.guru/wp-content/uploads/2019/01/largest-coffee-traders-starbucks-logo.png"
-            alt=""
-            srcset=""
-        /></a>
-      </div>
+      <div class="Signup_header"></div>
       <div class="profile_section">
         <img
           src="https://www.starbucks.in/assets/images/profileDP.svg"
@@ -37,10 +27,9 @@
           <h4>Phone number : {{phone}}</h4>
           <h4>email :{{email}}</h4>
         </div>
-        <div style="margin: 50px 0;">
+        <div style="margin: 50px 0">
           <a href="/logout"><button>Logout</button></a>
         </div>
-     
       </div>
       <div class="bottom_footer">
         <h4>
@@ -57,6 +46,5 @@
         </h4>
       </div>
     </div>
-   
   </body>
 </html>

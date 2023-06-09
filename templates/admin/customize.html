@@ -14,26 +14,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <style>
-      #loader {
-        display: none;
-        position: absolute;
-        width: 100%;
-        background-color: white;
-        height: 100vh;
-        top: 0;
-        left: 0;
-      }
-      #loader img{
-        width: 100%;
-        height: 100vh;
-      }
-    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-  <div id="loader"><img src="https://miro.medium.com/v2/resize:fit:1400/1*CsJ05WEGfunYMLGfsT2sXA.gif" alt="" srcset=""></div>
-
     <div class="container">
       <div class="img">
         <img
@@ -41,44 +24,36 @@
         />
       </div>
       <div class="login-content">
-        <form action="/signup" method="post">
-          <h2 class="title">Signup</h2>
+        <form action="/add_field" method="post">
+          <h2 class="title">Add new field</h2>
           <div class="input-div one">
             <div class="i">
               <i class="fas fa-user"></i>
             </div>
             <div class="div">
-              <h5>Username</h5>
-              <input type="text" class="input" name="name" id="name" />
+              <h5>Add Field 1</h5>
+              <input type="text" class="input" name="new_field1" id="new_field1" required/>
             </div>
           </div>
           <div class="input-div one">
             <div class="i">
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-user"></i>
             </div>
             <div class="div">
-              <h5>email</h5>
-              <input type="email" class="input" name="email" id="email" />
+              <h5>Add Field 2</h5>
+              <input type="text" class="input" name="new_field2" id="new_field2" required/>
             </div>
           </div>
-      
           <div class="input-div one">
             <div class="i">
-              <i class="fas fa-lock"></i>
+              <i class="fas fa-user"></i>
             </div>
             <div class="div">
-              <h5>Password</h5>
-              <input
-                type="password"
-                class="input"
-                name="password"
-                id="password"
-              />
+              <h5>Add Field 3</h5>
+              <input type="text" class="input" name="new_field3" id="new_field3" required/>
             </div>
           </div>
-          <a href="/login">If you haven account...</a>
-          
-          <button value="submit" id="submit">Signup</button>
+          <button value="add_field" id="submit">Add</button>
         </form>
       </div>
     </div>
@@ -101,14 +76,6 @@
         input.addEventListener("focus", addcl);
         input.addEventListener("blur", remcl);
       });
-     window.addEventListener('beforeunload', function() {
-      document.getElementById('loader').style.display = 'block';
-    });
-    
-    // Hide the loader when the page finishes reloading
-    window.addEventListener('load', function() {
-      document.getElementById('loader').style.display = 'none';
-    });
     </script>
   </body>
 </html>
