@@ -27,9 +27,11 @@ class Product(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
-    field1 =Column(String(100),nullable=False)
-    field2 =Column(String(100),nullable=True)
-    field3 =Column(String(100),nullable=True)
     price = Column(Float, nullable=False)
 
-    
+class ColumnRename(db.Model):
+    __tablename__ = 'column_rename'
+
+    id = db.Column(db.Integer, primary_key=True)
+    schema_name = db.Column(db.String(100), nullable=False)
+    column_name = db.Column(db.String(100), nullable=False)
