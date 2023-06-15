@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='store.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Starbucks</title>
+  </head>
+  {% extends "store/Header_Footer.html  " %} {% block body%}
+  <body>
+    <div class="menu_page" id="bestseller">
+      <h4>Bestseller</h4>
+      <p>
+        Everyone's favorite Starbucks put together in a specially curated
+        collection.
+      </p>
+
+      <form action="/menu" method="post">
+        <div class="searchBox">
+          <input
+            class="searchInput"
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search"
+            autocomplete="off"
+          />
+          <button class="searchButton" href="#">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </form>
+      {% if searchproducts %}
+        <div>
+          <h4>Search:</h4>
+          {% for s in searchproducts %}
+          <div style="margin: 25px 0">
+            <div class="custom-ol">
+                
+                <li>{{s.pname}} <br> Rs.{{s.pprice}}</li>
+      
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <h4>Search :</h4>
+      {{msg}} {% endif %}
+
+     
+      
+      <div class="custom-ol">
+        <ol>
+          {% for product in products %}
+          <li>{{product.pname}} <br> Rs.{{product.pprice}}</li>
+          {% endfor %}
+        </ol>
+
+      </div>
+
+    </div>
+  </body>
+  {% endblock %}
+</html>

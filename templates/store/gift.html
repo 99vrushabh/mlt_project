@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='main.css') }}" />
+
+    <title>Starbucks</title>
+  </head>
+  {% extends "store/Header_Footer.html  " %} {% block body%}
+
+  <body>
+    <div class="rewards_header">
+        STARBUCKS® Gifts 
+    </div>
+    <div class="gifts_heading">
+        <img src="{{url_for('static' , filename = '6.png')}}" alt="" srcset="">
+
+    </div>
+    <div class="rewards_page">
+      <div class="rewards">
+       <div class="rewards_card">
+          <div class="rewards_img">
+            <img
+              src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/49bc224d_6ad8_46db_a46f_9ce256321659_ee14b3016a.png"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div>
+            <h4>Greetings</h4>
+            <p style="font-size: 13px;">Let each 'hello' be one with coffee.</p>
+                <div style="margin-top: 20px;">
+                    <button>Add item</button>
+                </div>
+          </div>
+        </div>
+        <div class="rewards_card">
+          <div class="rewards_img">
+            <img
+              src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/ff96761f_7c0a_4960_84a8_2a94c7d994fc_2b88d93993.png"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div>
+            <h4>Good Things Ahead</h4>
+            <p style="font-size: 13px;">Have a cup of coffee, it's all good from here.</p>
+                <div style="margin-top: 20px;">
+                    <button>Add item</button>
+                </div>
+          </div>
+        </div>
+        <div class="rewards_card">
+          <div class="rewards_img">
+            <img
+              src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/7c6f7c64_3f89_4ba2_9af8_45fc6d94ad35_df43378185.jpg"
+              alt=""
+              srcset=""
+            />
+          </div>
+          <div>
+            <h4>U Keep Me Warm</h4>
+            <p style="font-size: 13px;">Captivating, cosy, coffee. Gift your loved ones this Starbucks Gift Card</p>
+                <div style="margin-top: 20px;">
+                    <button>Add item</button>
+                </div>
+          </div>
+        </div>
+        <div class="rewards_card">
+            <div class="rewards_img">
+              <img
+                src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/0bed73e6_0d8d_48c0_8936_f46d7355a8ad_1_252a72464c.png"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div>
+              <h4>Starbucks</h4>
+              <p style="font-size: 13px;">Take the moment and make it special with Starbucks.</p>
+                  <div style="margin-top: 20px;">
+                      <button>Add item</button>
+                  </div>
+            </div>
+          </div>
+          <div class="rewards_card">
+            <div class="rewards_img">
+              <img
+                src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/61c1abaf_3b0f_48af_903e_426c1b9dae41_98e25e6e63.png"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div>
+              <h4>Way To Go</h4>
+              <p style="font-size: 13px;">It's time to celebrate! Show your appreciation with this Starbucks Gift Card.</p>
+                  <div style="margin-top: 20px;">
+                      <button>Add item</button>
+                  </div>
+            </div>
+          </div>
+          <div class="rewards_card">
+            <div class="rewards_img">
+              <img
+                src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/10471f55_db43_4633_8f4a_a2b8408abeea_f708d3c29d.png"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div>
+              <h4>U Are The Best Just Sayin</h4>
+              <p style="font-size: 13px;">Think they're the Nitro to your Brew? Let them know.</p>
+                  <div style="margin-top: 20px;">
+                      <button>Add item</button>
+                  </div>
+            </div>
+          </div>
+    </div>
+  </body>
+  {% endblock %}
+</html>

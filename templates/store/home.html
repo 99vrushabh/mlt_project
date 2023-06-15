@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static',filename='store.css')}}" />
+
+    <title>Starbucks</title>
+  </head>
+  {% extends "store/Header_Footer.html  " %} {% block body%}
+  <body>
+    <div id="zoom-animation" onload="zoomAnimation()"> 
+      <img
+      src="https://cafebeats.in/wp-content/uploads/2021/03/cafebeats-black-logo-mobile-size.png"
+      alt=""
+      srcset=""
+    /></div>
+    <div class="home_page">
+      <div class="home_img">
+        {% if current_user.is_authenticated %}
+        
+        <h1 style="font-size: 18px;">Welcome {{name}}!!</h1>
+        {% endif %}
+        <h2>Handcrafted Curations</h2>
+        <div class="first">
+          <div class="products_section">
+            <a href="/menu">
+            <img
+              src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Category/Small/Bestseller.jpg"
+              alt=""
+              srcset=""
+            /></a>
+            <h3>Bestseller</h3>
+          </div>
+          <div class="products_section">
+            <img
+              src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Category/Small/Drinks.jpg"
+              alt=""
+              srcset=""
+            />
+            <h3>Drinks</h3>
+          </div>
+          <div class="products_section">
+            <img
+              src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Category/Small/Food.jpg"
+              alt=""
+              srcset=""
+            />
+            <h3>Food</h3>
+          </div>
+          <div class="products_section">
+            <img
+              src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Category/Small/Merchandise.jpg"
+              alt=""
+              srcset=""
+            />
+            <h3>Merchandise</h3>
+          </div>
+          <div class="products_section">
+            <img
+              src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Category/Small/CoffeeAtHome.jpg"
+              alt=""
+              srcset=""
+            />
+            <h3>Coffee At Home</h3>
+          </div>
+          <div class="products_section">
+            <img
+              src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Category/Small/ReadyToEat.jpg"
+              alt=""
+              srcset=""
+            />
+            <h3>Ready To Eat</h3>
+          </div>
+        </div>
+        <div class="second" style="margin: 50px 0px">
+          <h2>Best seller</h2>
+          <div class="menu_bestseller">
+            <div class="one_card">
+              <div class="card_img">
+                <img
+                  src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Items/Small/100501.jpg"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div>
+                <img
+                  src="https://www.starbucks.in/assets/icon/veg.svg"
+                  alt=""
+                  srcset=""
+                />
+                <h4>Java Chip Frappuccino</h4>
+                <h6 style="color: gray; font-size: 10px">
+                  TALL(354 ML) .392 kcal
+                </h6>
+                <p>
+                  We blend mocha sauce and Frappuccino® chips with
+                  Frappuccino...
+                </p>
+                <div class="price">
+                  <div>
+                    <h3>₹ 367.50</h3>
+                  </div>
+                  <div>
+                    <button>Add item</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="one_card">
+              <div class="card_img">
+                <img
+                  src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Items/Small/100433.jpg"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div>
+                <img
+                  src="https://www.starbucks.in/assets/icon/veg.svg"
+                  alt=""
+                  srcset=""
+                />
+                <h4>Caffe Americano</h4>
+                <h6 style="color: gray; font-size: 10px">
+                  SHORT(237 Ml) .0 kcal
+                </h6>
+                <p>
+                  Rich in flavour, full-bodied espresso with hot water in
+                  true...
+                </p>
+                <div class="price">
+                  <div>
+                    <h3>₹ 262.50</h3>
+                  </div>
+                  <div>
+                    <button>Add item</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="one_card">
+              <div class="card_img">
+                <img
+                  src="https://starbucks-cdn-01.s3.ap-south-1.amazonaws.com/Items/Small/105468.jpg"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <div>
+                <img
+                  src="https://www.starbucks.in/assets/icon/veg.svg"
+                  alt=""
+                  srcset=""
+                />
+                <h4>Cold coffee</h4>
+                <h6 style="color: gray; font-size: 10px">
+                  ALL(354 ML) .354 kcall
+                </h6>
+                <p>
+                  Our signature rich in flavour espresso blended with
+                  delicate...
+                </p>
+                <div class="price">
+                  <div>
+                    <h3>₹ 362.250</h3>
+                  </div>
+                  <div>
+                    <button>Add item</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var zoomAnimation = document.getElementById("zoom-animation");
+        setTimeout(function () {
+          zoomAnimation.remove();
+        }, 2000); // Adjust the duration (in milliseconds) to match the animation duration
+      });
+    
+    </script>
+  </body>
+  {% endblock %}
+</html>

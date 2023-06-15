@@ -27,7 +27,7 @@
       </div>
 
       <div class="searchbar">
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Search" name="search" id="search"/>
         <div class="searchbtn">
           <img
             src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
@@ -35,6 +35,7 @@
             alt="search-icon"
           />
         </div>
+      </form>
       </div>
 
       <div class="message">
@@ -117,7 +118,6 @@
             />
           </div>
         </div>
-
         <div class="box-container">
           <div class="box box1">
             <div class="text">
@@ -167,10 +167,10 @@
             />
           </div>
         </div>
-
+        
         <div class="report-container">
           <div class="report-header">
-            <h1 class="recent-Articles">Recent Articles</h1>
+            <h1 class="recent-Articles">My Store</h1>
             <button class="view">View All</button>
           </div>
 
@@ -185,8 +185,8 @@
             <div class="items">
               <div class="item1">
                 <h3 class="t-op-nextlvl">{{i.sname}}</h3>
-                <h3 class="t-op-nextlvl"><a href="/add_field">Products field</a></h3>
-                <h3 class="t-op-nextlvl"><a href="/Menu">menu</a></h3>
+                <h3 class="t-op-nextlvl"><a href="/add_product_field">Products field</a></h3>
+                <h3 class="t-op-nextlvl"><a href="/add_product">menu</a></h3>
                 <h3 class="t-op-nextlvl label-tag">Published</h3>
               </div>
               {% endfor %}

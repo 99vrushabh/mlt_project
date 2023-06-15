@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static',filename='store.css')}}" />
+    <link rel="icon" type="image/x-icon" href="https://cafebeats.in/wp-content/uploads/2021/03/cafebeats-black-logo-mobile-size.png">
+    <title>Starbucks</title>
+  </head>
+  <body>
+    <div class="header_section">
+      <div class="header_menu">
+        <div>
+          <a href="/store_home">
+            <img
+              src="https://cafebeats.in/wp-content/uploads/2021/03/cafebeats-black-logo-mobile-size.png"
+              alt=""
+              srcset=""
+            />
+          </a>
+        </div>
+
+        {% if current_user.is_authenticated %}
+        <div>
+          <a href="/store_menu">Menu</a>
+        </div>
+        <div>
+          <a href="/store_rewards">Rewards</a>
+        </div>
+        <div>
+          <a href="/gift">Gift Cards</a>
+        </div>
+        <div>
+          <a href="/order">order</a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="header_end">
+        {% if current_user.is_authenticated %}
+        <div>
+          <div>
+            <a href="/logout">Logout</a>
+          </div>
+        </div>
+        <div>
+          <a href="/profile">
+            <img
+              src="https://cdn0.iconfinder.com/data/icons/user-interface-vol-3-12/66/68-512.png"
+              alt=""
+              srcset=""
+              style="width: 50px; height: 50px"
+          /></a>
+        </div>
+        {% else %}
+        
+        <div>
+          <a href="/login">Join Now</a>
+        </div>
+        <div>
+          <h4 style="color: var(--theam);margin-left: 5px;">Login is required!!</h4>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% block body %} {% endblock %}
+    <div class="footer_section">
+      <img
+        src="https://preprodtsbstorage.blob.core.windows.net/cms/uploads/Starbucks_Rewards_Logo_f6d127fec7.png"
+        alt=""
+        srcset=""
+      />
+      <h4>
+        *At participating stores. Some restrictions apply. See
+        starbucks.com/rewards
+      </h4>
+      <h4>
+        *NO PURCHASE NECESSARY. Participating stores only. Starbucks Partners (employees) are not eligible to win prizes. Ends 6/18/23. To play and for Official Rules visit starbuckssummergame.com.
+        Entrants can receive a maximum of 2 plays per day, plus, bonus opportunities to earn additional plays.
+      </h4>
+      
+      <h4>**Fees and taxes still apply. Limit one per customer. Menu limited. See the DoorDash app for availability and restrictions.</h4>
+    </div>
+    
+  </body>
+</html>
