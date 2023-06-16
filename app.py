@@ -10,7 +10,7 @@ from tenants.store.api import store
 def create_app():
     app=Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/postgres'
-    
+  
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'vrushabh@_2611'
     db.init_app(app)
@@ -28,11 +28,10 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return Signup.query.get(user_id)
+
 # apis 
 
-@app.before_request
-def before_request():
-    db.choose_tenant(request.args[g.tenant])
+
 
 @app.route('/')
 def home():

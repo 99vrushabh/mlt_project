@@ -37,8 +37,7 @@ def add_product():
 
             db.session.execute(query, {'id': id, 'name': name, 'pinfo': pinfo, 'pdesc': pdesc, 'price': price})
             db.session.commit()
-            breakpoint()
-            return redirect(url_for('store_home'))
+            return redirect(url_for('store_page.store_home'))
     except Exception as e:
         return str(e)
     
