@@ -19,7 +19,7 @@
       </a>
     </div>
     <div class="login_form_section">
-      <form action="/add_product" method="post">
+      <form action="{{ url_for('store_page.add_product', tenant=tenant) }}" method="post">
         <input
           type="text"
           name="pname"

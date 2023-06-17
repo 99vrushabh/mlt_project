@@ -37,31 +37,11 @@
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
-      </form>
-      {% if searchproducts %}
-        <div>
-          <h4>Search:</h4>
-          {% for s in searchproducts %}
-          <div style="margin: 25px 0">
-            <div class="custom-ol">
-                
-                <li>{{s.pname}} <br> Rs.{{s.pprice}}</li>
-      
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% else %}
-      <h4>Search :</h4>
-      {{msg}} {% endif %}
-
-     
-      
+      </form>      
       <div class="custom-ol">
         <ol>
-          {% for product in products %}
-          <li>{{product.pname}} <br> Rs.{{product.pprice}}</li>
+          {% for result in result %}
+          <li>{{result.name}} <br> Rs.{{result.price}}</li>
           {% endfor %}
         </ol>
 

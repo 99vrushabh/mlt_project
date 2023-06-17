@@ -35,7 +35,7 @@ def load_user(user_id):
 # apis 
 @app.before_request
 def before_request():
-    tenant = request.headers.get('http://localhost:5000/')
+    tenant = request.headers.get('tenant')
     if tenant:
         db.choose_tenant(tenant)
         db.create_all()
@@ -56,7 +56,7 @@ def signup():
         )
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('login'))
+        return redirect(url_for('login'))   
     return render_template("signup.html")
 
 @app.route('/login' ,methods=['GET','POST'])
@@ -67,7 +67,8 @@ def login():
         if user.password == request.form.get("password"):
             login_user(user)
             flash("you are successfuly logged in")
-            return redirect(url_for('admin_page.admin_home',user_id=user.id))
+            notification = "Login Successfully...",200
+            return redirect(url_for('admin_page.admin_home',user_id=user.id,notification=notification))
         else:
             msg = "Username or Password is wrong"
             return render_template('login.html', msg=msg)

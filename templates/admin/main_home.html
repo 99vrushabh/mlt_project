@@ -21,7 +21,6 @@
   </head>
 
   <body>
-    <!-- for header part -->
     <header>
       <div class="logosec">
         <div class="logo">Home</div>
@@ -69,7 +68,8 @@
           {% endif %}
           <div id="myModal" class="modal">
             <div class="modal-content">
-              <span class="close">&times;</span>
+              <a href="/home">
+              <span class="close">&times;</span></a>
               <h6>Hello {{ user }}</h6>
               {% if notification is not none %}
                 <p>{{ notification }}</p>
@@ -163,7 +163,8 @@
         <div class="report-container">
           <div class="report-header">
             <h1 class="recent-Articles">My Store</h1>
-            <button class="view">View All</button>
+            <a href="/all_stores">
+            <button class="view">View All</button></a>
           </div>
 
           <div class="report-body">
@@ -183,7 +184,7 @@
                     <h3 class="t-op-nextlvl">
                       <a href="/add_product_field">Products field</a>
                     </h3>
-                    <h3 class="t-op-nextlvl"><a href="/add_product">menu</a></h3>
+                    <h3 class="t-op-nextlvl"><a href="/add_product?tenant={{tenant}}">menu</a></h3>
                     <h3 class="t-op-nextlvl label-tag">Published</h3>
                   </div>
                 </div>
@@ -199,7 +200,7 @@
                 <h3 class="t-op-nextlvl">
                   <a href="/add_product_field">Products field</a>
                 </h3>
-                <h3 class="t-op-nextlvl"><a href="{{ url_for('store_page.add_product') }}?tenant={{ g.tenant }}">menu</a></h3>
+                <h3 class="t-op-nextlvl"><a href="{{ url_for('store_page.add_product', tenant=i.sname) }}">menu</a></h3>
                 <h3 class="t-op-nextlvl label-tag">Published</h3>
               </div>
               {% endfor %}

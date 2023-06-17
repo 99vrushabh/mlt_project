@@ -12,7 +12,7 @@
     <div class="header_section">
       <div class="header_menu">
         <div>
-          <a href="/store_home">
+          <a href="{{ url_for('store_page.store_home', tenant=tenant) }}">
             <img
               src="https://cafebeats.in/wp-content/uploads/2021/03/cafebeats-black-logo-mobile-size.png"
               alt=""
@@ -23,13 +23,13 @@
 
         {% if current_user.is_authenticated %}
         <div>
-          <a href="/store_menu">Menu</a>
+          <a href="{{ url_for('store_page.store_menu', tenant=schema) }}">Menu</a>
         </div>
         <div>
-          <a href="/store_rewards">Rewards</a>
+          <a href="{{ url_for('store_page.store_rewards', tenant=schema) }}">Rewards</a>
         </div>
         <div>
-          <a href="/gift">Gift Cards</a>
+          <a href="{{ url_for('store_page.store_menu', tenant=schema) }}">Gift Cards</a>
         </div>
         <div>
           <a href="/order">order</a>

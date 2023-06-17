@@ -46,7 +46,7 @@ def add_new():
         create_by = str(current_user.email)
         new_one = new_store(id=id, sname=sname, semail=semail, sphone=sphone,spassword=spassword, create_by=create_by)
         try:
-            schemas =sname
+            schemas = g.tenant = sname 
             db.choose_tenant(schemas)
             session.execute(text(f'CREATE SCHEMA IF NOT EXISTS {schemas}'))
             session.execute(text(f'SET search_path TO {schemas}'))
@@ -63,7 +63,7 @@ def add_new():
             notification = "New store added Successfully !!"
             session.commit()    
             
-            return redirect(url_for('admin_page.admin_home',notification=notification   ))
+            return redirect(url_for('admin_page.admin_home',notification=notification))
         except Exception as e:
             return str(e)
         finally:
@@ -71,4 +71,12 @@ def add_new():
     
     return render_template('admin/add_new.html')
 
+
+@admin.route('/all_stores',methods=['GET'])
+def all_stores():
+    if current_user.is_superadmin == True:
+        all_store= new_store.query.all()
+        return "hello"
+    else:
+        return redirect(url_for('admin_page.admin_home'))
 

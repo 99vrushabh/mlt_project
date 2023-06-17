@@ -16,11 +16,12 @@ class MultiTenantSQLAlchemy(SQLAlchemy):
 def switch_tenant(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        tenant = request.headers.get('X-Tenant-Identifier')
+        tenant = request.headers.get('tenant')
         if tenant:
             g.tenant = tenant
         else:
-            g.tenant = None  # Or handle the case when no tenant is provided
+            g.tenant = None  
         return f(*args, **kwargs)
     return decorated_function
+
 db = MultiTenantSQLAlchemy()
