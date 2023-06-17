@@ -1,27 +1,51 @@
 version: '3'
 services:
-  test1:
-    ports:
-        - "5432:5432"
+  postgres:
+    build:
+      dockerfile: .dockerfile
+    ports: 
+        - 1111:5432
     image: postgres
-    container_name: test1
+    container_name: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes: 
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: always
+
+  test1:
+    build:
+      dockerfile: .dockerfile
+    ports:
+      - 2222:5432
+    image: postgres
+
+    container_name: test1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test1
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./data/test1:/var/lib/postgresql/data
-    restart : always
+    restart: always
 
   test2:
+    build:
+      dockerfile: .dockerfile
     ports:
-          - "1234:1234"
+      - 1234:5432
     image: postgres
     container_name: test2
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: test2
+      PGDATA: /var/lib/postgresql/data/pgdata
+
     volumes:
       - ./data/test2:/var/lib/postgresql/data
-    restart : always
+    restart: always

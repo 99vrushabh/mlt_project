@@ -32,3 +32,4 @@ var paragraph = document.getElementById("myParagraph");
 
 // Clear the text content
 paragraph.innerHTML = "";
+

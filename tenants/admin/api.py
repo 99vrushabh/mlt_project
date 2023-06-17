@@ -3,11 +3,12 @@ from flask import Blueprint, g, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from common.models import new_store,Signup
+from common.models import new_store
+from common.database import switch_tenant,db
 
 admin = Blueprint('admin_page', __name__, template_folder='templates', static_folder='static')
     
-engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+engine = create_engine('postgresql://postgres:postgres@localhost:1111/postgres')
 Session = sessionmaker(bind=engine)
 session  = Session()
 
@@ -34,18 +35,20 @@ def admin_home():
 
 
 @admin.route('/add_new', methods=['GET', 'POST'])
+@switch_tenant
 def add_new():
     if request.method == 'POST':
         id = str(uuid.uuid4())
         sname = request.form.get('sname').lower().replace(" ", "_")
         semail = request.form.get('semail')
+        sphone = request.form.get("sphone")
         spassword = request.form.get('spassword')
         create_by = str(current_user.email)
-        new_one = new_store(id=id, sname=sname, semail=semail, spassword=spassword, create_by=create_by)
-        
+        new_one = new_store(id=id, sname=sname, semail=semail, sphone=sphone,spassword=spassword, create_by=create_by)
         try:
-            schemas = sname      
-            session.execute(text('CREATE SCHEMA IF NOT EXISTS "{}"'.format(schemas)))
+            schemas =sname
+            db.choose_tenant(schemas)
+            session.execute(text(f'CREATE SCHEMA IF NOT EXISTS {schemas}'))
             session.execute(text(f'SET search_path TO {schemas}'))
             session.execute(text(f'''
                 CREATE TABLE IF NOT EXISTS "{schemas}"."product" (
@@ -60,10 +63,11 @@ def add_new():
             notification = "New store added Successfully !!"
             session.commit()    
             
-            return redirect(url_for('admin_page.admin_home', schemas=schemas, _schemas=schemas, notification=notification))
+            return redirect(url_for('admin_page.admin_home',notification=notification   ))
+        except Exception as e:
+            return str(e)
         finally:
             session.close()
-            return schemas
     
     return render_template('admin/add_new.html')
 

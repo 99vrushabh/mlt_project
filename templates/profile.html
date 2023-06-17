@@ -8,12 +8,11 @@
     <title>Starbucks</title>
   </head>
   <body>
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for
-    message in messages %}
+    {% with messages = get_flashed_messages() %} {% if messages %}
     <p style="padding: 20px; background-color: green; color: white">
       {{ message }}
     </p>
-    {% endfor %} {% endif %} {% endwith %}
+     {% endif %} {% endwith %}
     <div class="profile_page">
       <div class="Signup_header"></div>
       <div class="profile_section">

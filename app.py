@@ -1,7 +1,7 @@
 import uuid
 from flask import Flask, flash, g, jsonify, redirect, render_template, request, url_for
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
-from common.database import db
+from common.database import *
 from common.models import Signup
 from tenants.admin.api import admin
 from tenants.store.api import store
@@ -9,8 +9,11 @@ from tenants.store.api import store
 
 def create_app():
     app=Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/postgres'
-  
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:1111/postgres'
+    app.config['SQLALCHEMY_BINDS']={
+        'test1':'postgresql://postgres:postgres@localhost:2222/test1',
+        'test2' :'postgresql://postgres:postgres@localhost:1234/test2'
+    }
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'vrushabh@_2611'
     db.init_app(app)
@@ -30,8 +33,12 @@ def load_user(user_id):
     return Signup.query.get(user_id)
 
 # apis 
-
-
+@app.before_request
+def before_request():
+    tenant = request.headers.get('http://localhost:5000/')
+    if tenant:
+        db.choose_tenant(tenant)
+        db.create_all()
 
 @app.route('/')
 def home():
@@ -44,6 +51,7 @@ def signup():
             id =str(uuid.uuid4()),
             name=request.form.get("name"),  
             email=request.form.get("email"),
+            phone = request.form.get("phone"),
             password=request.form.get("password"),
         )
         db.session.add(user)

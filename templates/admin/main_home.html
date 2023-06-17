@@ -32,7 +32,7 @@
           alt="menu-icon"
         />
       </div>
-
+      
       <div class="searchbar">
         <div id="wrap">
           <form action="/home" method="post">
@@ -46,7 +46,7 @@
               id="searcht"
               value="submit"
               type="submit"
-              style="height: 41px; width: 50px; border: none"
+              style="height: 41px; width: 50px; border: none;background-color: transparent;margin-left: -50px;"
             >
               <i
                 class="fa-solid fa-magnifying-glass"
@@ -64,32 +64,37 @@
           class="icn"
           alt=""
           /></button>
+          {% if notification is not none %}
+          <div class="circle"></div>
+          {% endif %}
           <div id="myModal" class="modal">
             <div class="modal-content">
               <span class="close">&times;</span>
               <h6>Hello {{ user }}</h6>
               {% if notification is not none %}
-              <div class="circle"></div>
-      <p>{{ notification }}</p>
-    {% else %}
-      <p>No notification...</p>
-    {% endif %}
+                <p>{{ notification }}</p>
+                    {% else %}
+                   <p>No notification...</p>
+                {% endif %}
           </div>
         </div>
         <div class="dp">
+          <a href="/profile">
           <img
             src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
             class="dpicn"
             alt="dp"
-          />
+          /></a>
         </div>
       </div>
     </header>
 
     <div class="main-container">
+
       <div class="navcontainer">
         <nav class="nav">
           <div class="nav-upper-options">
+            
             <div class="nav-option option1">
               <img
                 src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
@@ -152,7 +157,6 @@
             />
           </div>
         </div>
-      
         <div class="items"> 
           <div class="item1"></div>
         </div>
@@ -195,7 +199,7 @@
                 <h3 class="t-op-nextlvl">
                   <a href="/add_product_field">Products field</a>
                 </h3>
-                <h3 class="t-op-nextlvl"><a href="/add_product">menu</a></h3>
+                <h3 class="t-op-nextlvl"><a href="{{ url_for('store_page.add_product') }}?tenant={{ g.tenant }}">menu</a></h3>
                 <h3 class="t-op-nextlvl label-tag">Published</h3>
               </div>
               {% endfor %}
