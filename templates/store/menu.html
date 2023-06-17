@@ -15,29 +15,49 @@
     <title>Starbucks</title>
   </head>
   {% extends "store/Header_Footer.html  " %} {% block body%}
-  <body>
-    <div class="menu_page" id="bestseller">
-      <h4>Bestseller</h4>
-      <p>
-        Everyone's favorite Starbucks put together in a specially curated
-        collection.
-      </p>
+    <body>
+      <div class="menu_page" id="bestseller">
+        <h4>Bestseller</h4>
+        <p>
+          Everyone's favorite Starbucks put together in a specially curated
+          collection.
+        </p>
 
-      <form action="/menu" method="post">
-        <div class="searchBox">
-          <input
-            class="searchInput"
-            type="text"
-            name="search"
-            id="search"
-            placeholder="Search"
-            autocomplete="off"
-          />
-          <button class="searchButton" href="#">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
-        </div>
-      </form>      
+        <form action="{{ url_for('store_page.store_menu', tenant=schema) }}"  method="post">
+          <div class="searchBox">
+            <input
+              class="searchInput"
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Search"
+              autocomplete="off"
+            />
+            <button class="searchButton" href="#">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </form>
+        {% if searchproducts %}
+          <div>
+            <h4>Search:</h4>
+            {% for s in searchproducts %}
+            <div style="margin: 25px 0">
+              <div class="custom-ol">
+                  
+                  <li>{{s.name}} <br> Rs.{{s.price}}</li>
+        
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+      </div>
+      {% else %}
+      <h4>Search :</h4>
+      {{msg}} {% endif %}
+
+     
+      
       <div class="custom-ol">
         <ol>
           {% for result in result %}

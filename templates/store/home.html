@@ -18,10 +18,7 @@
     /></div>
     <div class="home_page">
       <div class="home_img">
-        {% if current_user.is_authenticated %}
-        
-        <h1 style="font-size: 18px;">Welcome {{name}}!!</h1>
-        {% endif %}
+        <h1 style="font-size: 18px;">Welcome {{current_user.name}}!!</h1>
         <h2>Handcrafted Curations</h2>
         <div class="first">
           <div class="products_section">

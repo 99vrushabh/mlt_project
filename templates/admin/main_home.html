@@ -157,9 +157,14 @@
             />
           </div>
         </div>
-        <div class="items"> 
-          <div class="item1"></div>
-        </div>
+        <div class="user_details" style="color: #381e76;margin:0px 50px;" >
+        <h2>Hello {{current_user.name}}</h2>
+        {% if current_user.is_admin == True %}
+        <p style="font-size: 10px;font-weight: bold;">Roll : Admin</p>
+        {% else %}
+        <p style="font-size: 10px;font-weight: bold;">Roll : User</p>
+        {% endif %}
+      </div>
         <div class="report-container">
           <div class="report-header">
             <h1 class="recent-Articles">My Store</h1>
@@ -168,12 +173,6 @@
           </div>
 
           <div class="report-body">
-            <div class="report-topic-heading">
-              <h3 class="t-op">Store</h3>
-              <h3 class="t-op">Views</h3>
-              <h3 class="t-op">Comments</h3>
-              <h3 class="t-op">Status</h3>
-            </div>
             {% if search_stores %}
               {% for i in search_stores %}
               <div  style="background-color: rgba(0, 0, 255, 0.213);">
@@ -182,7 +181,7 @@
                   <div class="item1">
                     <h3 class="t-op-nextlvl">{{i.sname}}</h3>
                     <h3 class="t-op-nextlvl">
-                      <a href="/add_product_field">Products field</a>
+                      <a href="{{ url_for('store_page.store_home', tenant=tenant) }}">Home</a>
                     </h3>
                     <h3 class="t-op-nextlvl"><a href="/add_product?tenant={{tenant}}">menu</a></h3>
                     <h3 class="t-op-nextlvl label-tag">Published</h3>
@@ -198,9 +197,11 @@
               <div class="item1">
                 <h3 class="t-op-nextlvl">{{i.sname}}</h3>
                 <h3 class="t-op-nextlvl">
-                  <a href="/add_product_field">Products field</a>
+                  <a href="{{ url_for('store_page.store_home', tenant=i.sname) }}">Home</a>
                 </h3>
+                {% if current_user.is_admin == True %}
                 <h3 class="t-op-nextlvl"><a href="{{ url_for('store_page.add_product', tenant=i.sname) }}">menu</a></h3>
+                {% endif %}
                 <h3 class="t-op-nextlvl label-tag">Published</h3>
               </div>
               {% endfor %}

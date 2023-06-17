@@ -3,7 +3,7 @@ from flask import Blueprint, g, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from common.models import new_store
+from common.models import new_store,Signup
 from common.database import switch_tenant,db
 
 admin = Blueprint('admin_page', __name__, template_folder='templates', static_folder='static')
@@ -17,7 +17,10 @@ session  = Session()
 def admin_home():
     user = current_user.name
     notification = request.args.get('notification')
-    add = session.query(new_store).filter(new_store.create_by == current_user.email).all()
+    if current_user.is_admin == True:
+        add = session.query(new_store).filter(new_store.create_by == current_user.email).all()
+    else :
+        add = new_store.query.all()
     search = new_store.query.all()
     msg = " "
 
@@ -35,6 +38,7 @@ def admin_home():
 
 
 @admin.route('/add_new', methods=['GET', 'POST'])
+@login_required
 @switch_tenant
 def add_new():
     if request.method == 'POST':
@@ -59,6 +63,12 @@ def add_new():
                     "price" FLOAT NOT NULL
                 )
             ''')) 
+            signup_user = session.query(Signup.name).filter(Signup.name == new_store.create_by)
+            if signup_user:
+                current_user.is_admin=True
+            else:
+                current_user.is_admin=False
+
             session.add(new_one)
             notification = "New store added Successfully !!"
             session.commit()    
@@ -72,11 +82,4 @@ def add_new():
     return render_template('admin/add_new.html')
 
 
-@admin.route('/all_stores',methods=['GET'])
-def all_stores():
-    if current_user.is_superadmin == True:
-        all_store= new_store.query.all()
-        return "hello"
-    else:
-        return redirect(url_for('admin_page.admin_home'))
 

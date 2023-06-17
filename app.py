@@ -79,7 +79,8 @@ def login():
 def profile():
     name=current_user.name
     email=current_user.email
-    return render_template('profile.html',name=name,email=email)
+    phone=current_user.phone
+    return render_template('profile.html',name=name,email=email,phone=phone)
 
 @app.route("/superadmin_userdetails")
 @login_required
