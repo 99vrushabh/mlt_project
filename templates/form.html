@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
+
+    <title>Document</title>
+    
+  </head>
+  <body>
+    <section>
+      <div class="main-form-container">
+        <div id="form_section" class="form-container">
+          <div class="login-form form-wraper">
+            <div>
+              <div class="form-title">
+                <h2>Login</h2>
+              </div>
+              <form action="/login" method="post">
+                <div class="input-group">
+                  <div class="box">
+                    <span>
+                      <input
+                        placeholder="Email"
+                        class="myInput"
+                        type="text"
+                        name="email"
+                        id="email"
+                        autocomplete="off"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <div class="box">
+                    <span>
+                      <input
+                        placeholder="Password"
+                        class="myInput"
+                        type="text"
+                        name="password"
+                        id="password"
+                        autocomplete="off"
+                      />
+                    </span>
+                  </div>
+                </div>
+                {{msg}}
+                <div class="action-button">
+                  <button value="submit" id="submit">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="signUp-form form-wraper">
+            <div>
+              <div class="form-title">
+                <h2>Sign Up</h2>
+              </div>
+        <form action="/signup" method="post">
+
+              <div class="input-group">
+                <div class="box">
+                  <span>
+                    <input
+                      placeholder="Full Name"
+                      class="myInput"
+                      type="text"
+                      autocomplete="off"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div class="input-group">
+                <div class="box">
+                  <span>
+                      <input placeholder="Email" class="myInput" type="text" autocomplete="off"/>
+                  </span>
+                </div>
+              </div>
+              <div class="input-group">
+                <div class="box">
+                  <span>
+                    <input
+                      placeholder="Mobile No."
+                      class="myInput"
+                      type="number"
+                      autocomplete="off"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div style="margin-bottom: 0px" class="input-group">
+                <div class="box">
+                  <span>
+                    <input
+                      placeholder="Password"
+                      class="myInput"
+                      type="password"
+                      autocomplete="off"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div class="action-button">
+                <button value="submit" id="submit">Sign Up</button>
+              </div>
+        </form>
+
+            </div>
+          </div>
+        </div>
+        <div id="multiple-btn" class="bg-btn-container">
+          <div class="action-button">
+            <button>Login</button>
+          </div>
+          <div class="action-button">
+            <button>Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="{{url_for('static',filename='index.js')}}"></script>
+
+  </body>
+</html>

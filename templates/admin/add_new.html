@@ -1,122 +1,69 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Cafe Store</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}} " />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-      #loader {
-        display: none;
-        position: absolute;
-        width: 100%;
-        background-color: white;
-        height: 100vh;
-        top: 0;
-        left: 0;
-      }
-      #loader img{
-        width: 100%;
-        height: 100vh;
-      }
-    </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body>
-  <div id="loader"><img src="https://miro.medium.com/v2/resize:fit:1400/1*CsJ05WEGfunYMLGfsT2sXA.gif" alt="" srcset=""></div>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='add_store.css')}}" />
 
-    <div class="container">
-      <div class="img">
-        <img
-          src="https://i.pinimg.com/originals/95/29/d3/9529d3242b18c3c59d6c9e924e400712.gif"
-        />
-      </div>
-      <div class="login-content">
-        <form action="/add_new" method="post">
-          <h2 class="title">Add New Store</h2>
-          <div class="input-div one">
-            <div class="i">
-              <i class="fas fa-store"></i>
-            </div>
-            <div class="div">
-              <h5>Store name</h5>
-              <input type="text" class="input" name="sname" id="sname" />
-            </div>
-          </div>
-          <div class="input-div one">
-            <div class="i">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div class="div">
-              <h5>Business Email</h5>
-              <input type="email" class="input" name="semail" id="semail" />
-            </div>
-          </div>
-          <div class="input-div one">
-            <div class="i">
-              <i class="fas fa-phone"></i>
-            </div>
-            <div class="div">
-              <h5>Contect no.</h5>
-              <input type="tel" class="input" name="sphone" id="sphone" />
-            </div>
-          </div>
-      
-          <div class="input-div one">
-            <div class="i">
-              <i class="fas fa-lock"></i>
-            </div>
-            <div class="div">
-              <h5>Password</h5>
-              <input
-                type="password"
-                class="input"
-                name="spassword"
-                id="spassword"
-              />
-            </div>
-          </div>
-          
-          <button value="submit" id="submit">Add Store..</button>
-        </form>
-      </div>
-    </div>
-    <script>
-      const inputs = document.querySelectorAll(".input");
 
-      function addcl() {
-        let parent = this.parentNode.parentNode;
-        parent.classList.add("focus");
-      }
-
-      function remcl() {
-        let parent = this.parentNode.parentNode;
-        if (this.value == "") {
-          parent.classList.remove("focus");
-        }
-      }
-
-      inputs.forEach((input) => {
-        input.addEventListener("focus", addcl);
-        input.addEventListener("blur", remcl);
-      });
-     window.addEventListener('beforeunload', function() {
-      document.getElementById('loader').style.display = 'block';
-    });
+  <title>Document</title>
+  <style>
     
-    // Hide the loader when the page finishes reloading
-    window.addEventListener('load', function() {
-      document.getElementById('loader').style.display = 'none';
-    });
-    </script>
-  </body>
+    
+  </style>
+</head>
+
+
+<body>
+  <div class="site">
+    <img class="siteimg" src="http://www.whitewatersc.ie/wp-content/uploads/2015/07/store-costa-coffee1.png">
+    <div class="add_store">
+      <form action="/add_new" method="post">
+        <h2 class="title" style="color: aliceblue;">Add New Store</h2>
+        <div class="input-group">
+          <div class="box">
+            <span>
+              <input type="text" class="input" name="sname" id="sname" autocomplete="off" placeholder="Store Name"/>
+            </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="box">
+            <span>
+              <input type="email" class="input" name="semail" id="semail" autocomplete="off" placeholder="Store email"/>
+            </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="box">
+            <span>
+              <input type="tel" class="input" name="sphone" id="sphone" autocomplete="off" placeholder="Store phone no."/>
+            </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="box">
+            <span>
+              <input type="password" class="input" name="spassword" id="spassword" autocomplete="off" placeholder="Password"/>
+            </span>
+          </div>
+        </div>
+        <div class="buttons" style="display: flex;justify-content: space-between;align-items: center; margin-top: 50px;">
+          <div class="back">
+      <a href="/home"><i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #ffffff;"></i></a>
+    </div>
+    <div class="add">
+        <button value="submit" id="submit">Add Store..</button></div></div>
+      </form>
+    </div>
+  </div>
+ 
+  </div>
+  </div>
+ 
+</body>
+
+
 </html>

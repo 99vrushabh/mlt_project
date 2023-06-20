@@ -1,0 +1,111 @@
+body {
+  background-color: #cccccc !important;
+  overflow: hidden;
+}
+
+
+.site {
+  z-index: 4;
+  position: absolute;
+  width: 600px;
+  height: 92vh;
+  background: #356893;
+  top: 20px;
+  left: 55%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.siteimg {
+  position: relative;
+  display: block;
+  margin: auto;
+  max-height: 350px;
+  top: -100px;
+}
+
+.siteform {
+  position: relative;
+  top: -200px;
+  left: 20px;
+  font-family: Verdana;
+  color: white;
+}
+
+input[type="radio"]:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  position: relative;
+  background-color: #356893;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type="radio"]:checked:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  position: relative;
+  background-color: #fff;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+button {
+  border: 2px solid white;
+  background-color: #356893;
+  color: white;
+  font-size: 1.4em;
+  font-family: Verdana;
+  border-radius: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 13pc;
+  height: 58px;
+}
+
+button:hover {
+    border: 2px solid #356893;
+    background-color: #fff;
+    color: #356893;
+    font-family: Verdana;
+    font-size: 1.4em;
+   
+}
+
+input[type="checkbox"]:after {
+  width: 10px;
+  height: 10px;
+  position: relative;
+  background-color: #356893;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type="checkbox"]:checked:after {
+  width: 10px;
+  height: 10px;
+  position: relative;
+  background-color: #fff;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+.add_store {
+  position: absolute;
+  top: 36%;
+  text-align: center;
+  margin: 5px 107px;
+  width: 63%;
+}
+
+.box{
+    margin: 17px 0px;
+}

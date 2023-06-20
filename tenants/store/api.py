@@ -85,3 +85,9 @@ def add_product(tenant):
 
     return render_template('store/product.html', tenant=tenant)
 
+@store.route('/order/<string:tenant>')
+@switch_tenant
+def order(tenant):
+    g.tenant= tenant
+    name = current_user.name
+    return render_template('store/order.html',tenant=tenant,name=name)

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='order.css')}}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="iphone">
+        <header class="header">
+          <h1>Checkout</h1>
+        </header>
+      
+        <form action="https://httpbin.org/post" class="form" method="POST">
+          <div>
+            <h2>Address</h2>
+      
+            <div class="card">
+              <address>
+                {{name}}
+                <br />
+                403 Oakland Ave Street, A city, Florida, 32104,<br />
+                United States of America
+              </address>
+            </div>
+          </div>
+      
+          <fieldset>
+            <legend>Payment Method</legend>
+      
+            <div class="form__radios">
+              <div class="form__radio">
+                <label for="visa"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png" alt="">Visa Payment</label>
+                <input checked id="visa" name="payment-method" type="radio" />
+              </div>
+      
+              <div class="form__radio">
+                <label for="paypal"><img src="https://www.freepnglogos.com/uploads/paypal-logo-png-8.png" alt="">PayPal</label>
+                <input id="paypal" name="payment-method" type="radio" />
+              </div>
+      
+              <div class="form__radio">
+                <label for="mastercard"><img src="https://1000logos.net/wp-content/uploads/2017/03/MasterCard-Logo-1990.png" alt=""> Master Card</label>
+                <input id="mastercard" name="payment-method" type="radio" />
+              </div>
+            </div>
+          </fieldset>
+      
+          <div>
+            <h2>Shopping Bill</h2>
+      
+            <table>
+              <tbody>
+                <tr>
+                  <td>Shipping fee</td>
+                  <td style="text-align: right;">$5.43</td>
+                </tr>
+                <tr>
+                  <td>Discount 10%</td>
+                  <td style="text-align: right;">-$1.89</td>
+                </tr>
+                <tr>
+                  <td>Price Total</td>
+                  <td style="text-align: right;">$84.82</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total</td>
+                  <td style="text-align: right;">$88.36</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+      
+          <div>
+            <button class="button button--full" type="submit">
+             <i class="fa-solid fa-bag-shopping"></i> Buy Now</button>
+          </div>
+        </form>
+      </div>
+      
+     
+</body>
+</html>

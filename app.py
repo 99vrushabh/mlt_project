@@ -4,6 +4,7 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from common.database import *
 from common.models import Signup
 from tenants.admin.api import admin
+from tenants.admin.service import details_user,signup_user
 from tenants.store.api import store
 
 
@@ -47,23 +48,17 @@ def home():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        user = Signup(
-            id =str(uuid.uuid4()),
-            name=request.form.get("name"),  
-            email=request.form.get("email"),
-            phone = request.form.get("phone"),
-            password=request.form.get("password"),
-        )
+        user = signup_user()
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))   
-    return render_template("signup.html")
+    return render_template("form.html")
 
 @app.route('/login' ,methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         user = Signup.query.filter_by(
-            name=request.form.get("name")).first_or_404()
+            email=request.form.get("email")).first_or_404()
         if user.password == request.form.get("password"):
             login_user(user)
             flash("you are successfuly logged in")
@@ -71,16 +66,14 @@ def login():
             return redirect(url_for('admin_page.admin_home',user_id=user.id,notification=notification))
         else:
             msg = "Username or Password is wrong"
-            return render_template('login.html', msg=msg)
-    return render_template("login.html")
+            return render_template('form.html', msg=msg)
+    return render_template("form.html")
 
 @app.route("/profile")
 @login_required     
 def profile():
-    name=current_user.name
-    email=current_user.email
-    phone=current_user.phone
-    return render_template('profile.html',name=name,email=email,phone=phone)
+    user=current_user
+    return render_template('profile.html',name=user.name,email=user.email,phone=user.phone)
 
 @app.route("/superadmin_userdetails")
 @login_required

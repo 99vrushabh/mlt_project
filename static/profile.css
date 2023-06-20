@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+
+  }
+  :root {
+      --theam: #1d3557;
+      --background: #f1faee;
+      --hover: #457b9d;
+      --extra1: #a8dadc;
+      --extra2: #e63946;
+    }
+  body {
+    font-family: 'Segoe UI';
+    background-color: #f1f1f1;
+  }
+  .page_back a img{
+    text-decoration: none;
+    color: black;
+    border: #1d3557;
+    height: 50px;
+    width: 45px;
+    line-height: 45px;
+    padding: 10px 10px;
+    text-align: center;
+  }
+  .center {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      height: 100vh;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+  }
+  .cta a:nth-child(1):hover,.cta a:nth-child(2):hover{
+    background-color: var(--extra2);
+    color: var(--background);
+  }
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 2rem 3rem;
+    box-shadow: 0px 10px 30px var(--background);
+  }
+  
+  .profile-container img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--extra2);
+  }
+  
+  .name-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .details-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin-top: 2rem;
+  }
+  
+  .posts-container,
+  .follower-container,
+  .following-container {
+    text-align: center;
+  }
+  
+  .cta {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .cta a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 0px 2rem;
+    margin-top: 3rem;
+  }
+  
+  .cta a:nth-child(1) {
+    color: #fff;
+    background-color: var(--theam);
+    padding: 10px 2rem;
+    transition: all .3s ease;
+  }
+  
+  .cta a:nth-child(2) {
+    color: var(--theam);
+    background-color: var(--background);
+    padding: 10px 2rem;
+    transition: all .3s ease;
+  }

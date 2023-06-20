@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from common.models import new_store,Signup
 from common.database import switch_tenant,db
-
+from tenants.admin.service import details_user, find_store
 admin = Blueprint('admin_page', __name__, template_folder='templates', static_folder='static')
     
 engine = create_engine('postgresql://postgres:postgres@localhost:1111/postgres')
@@ -15,26 +15,20 @@ session  = Session()
 @admin.route("/home", methods=['GET', 'POST'])
 @login_required
 def admin_home():
-    user = current_user.name
+    user = details_user()
     notification = request.args.get('notification')
     if current_user.is_admin == True:
         add = session.query(new_store).filter(new_store.create_by == current_user.email).all()
     else :
         add = new_store.query.all()
     search = new_store.query.all()
-    msg = " "
-
     if request.method == 'POST':
         search = request.form.get("search").lower().replace(" ", "_")
         if search:
-            search_stores = new_store.query.filter(new_store.sname.like(f'%{search}%')).all()
-            if not search_stores:
-                msg = "Store not found"
+            search_stores, msg = find_store(search)  
             return render_template('admin/main_home.html', user=user, add=add, search_stores=search_stores, msg=msg, notification=notification)
         else:
             return render_template('admin/main_home.html', user=user, add=add, notification=notification)
-    
-    return render_template('admin/main_home.html', user=user, add=add, notification=notification)
 
 
 @admin.route('/add_new', methods=['GET', 'POST'])

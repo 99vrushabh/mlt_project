@@ -2,15 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width,
-				initial-scale=1.0"
-    />
-    <title>Home</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
-    <link rel="stylesheet" href="responsive.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -18,20 +11,28 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-  </head>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static',filename='card.css')}}" />
 
+   <style>
+   
+   </style>
+  </head>
   <body>
-    <header>
-      <div class="logosec">
-        <div class="logo">Home</div>
-        <img
-          src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
-          class="icn menuicn"
-          id="menuicn"
-          alt="menu-icon"
-        />
+    
+
+    <div class="main" style="width: 100%;">
+      <div class="wrapper">
+        <div class="menu">
+          <div class="flyout"><a href="/home"><i class="fa-solid fa-house"></i></a></div>
+          <div class="flyout"><a href="/add_new"><i class="fa-solid fa-plus"></i></a></div>
+          <div class="flyout"><a href="/profile"><i class="fa-solid fa-user"></i></a></div>
+          <div class="flyout"><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></div>
+          <div class="flyout"><a href="#"><i class="fa-solid fa-gear"></i></a></div>
+          <i class="fa-solid fa-arrow-up hidden"></i>
+          <i class="fa-solid fa-bars"></i>
+        </div>
       </div>
-      
       <div class="searchbar">
         <div id="wrap">
           <form action="/home" method="post">
@@ -40,177 +41,70 @@
               name="search"
               type="text"
               placeholder="What're we looking for ?"
-              autocomplete= "False"
+              autocomplete="False"
             /><button
               id="searcht"
               value="submit"
               type="submit"
-              style="height: 41px; width: 50px; border: none;background-color: transparent;margin-left: -50px;"
+              style="
+                height: 41px;
+                width: 50px;
+                border: none;
+                background-color: transparent;
+                margin-left: -50px;
+              "
             >
               <i
                 class="fa-solid fa-magnifying-glass"
-                style="color: #381e76"
+                style="color: #f1faee"
               ></i>
             </button>
           </form>
         </div>
       </div>
-
-      <div class="message">
-        <button id="myBtn" style="border: none;">
-          <img
-          src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png"
-          class="icn"
-          alt=""
-          /></button>
-          {% if notification is not none %}
-          <div class="circle"></div>
-          {% endif %}
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <a href="/home">
-              <span class="close">&times;</span></a>
-              <h6>Hello {{ user }}</h6>
-              {% if notification is not none %}
-                <p>{{ notification }}</p>
-                    {% else %}
-                   <p>No notification...</p>
-                {% endif %}
-          </div>
-        </div>
-        <div class="dp">
-          <a href="/profile">
-          <img
-            src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
-            class="dpicn"
-            alt="dp"
-          /></a>
-        </div>
-      </div>
-    </header>
-
-    <div class="main-container">
-
-      <div class="navcontainer">
-        <nav class="nav">
-          <div class="nav-upper-options">
-            
-            <div class="nav-option option1">
-              <img
-                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
-                class="nav-img"
-                alt="dashboard"
-              />
-              <a href="/home" style="text-decoration: none; color: aliceblue">
-                <h3>Dashboard</h3></a
-              >
-            </div>
-            <div class="nav-option option1">
-              <img
-                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
-                class="nav-img"
-              />
-              <a
-                href="/add_new"
-                style="text-decoration: none; color: aliceblue"
-              >
-                <h3>Store</h3></a
-              >
-            </div>
-            <div class="nav-option option5">
-              <img
-                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183323/10.png"
-                class="nav-img"
-                alt="blog"
-              />
-              <a href="/profile"> <h3>Profile</h3></a>
-            </div>
-
-            <div class="nav-option option6">
-              <img
-                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/4.png"
-                class="nav-img"
-                alt="settings"
-              />
-              <h3>Settings</h3>
-            </div>
-
-            <div class="nav-option logout">
-              <img
-                src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
-                class="nav-img"
-                alt="logout"
-              />
-              <a href="/logout"> <h3>Logout</h3> </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div class="main">
-        <div class="searchbar2">
-          <input type="text" name="" id="" placeholder="Search" />
-          <div class="searchbtn">
-            <img
-              src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
-              class="icn srchicn"
-              alt="search-button"
-            />
-          </div>
-        </div>
-        <div class="user_details" style="color: #381e76;margin:0px 50px;" >
-        <h2>Hello {{current_user.name}}</h2>
-        {% if current_user.is_admin == True %}
-        <p style="font-size: 10px;font-weight: bold;">Roll : Admin</p>
-        {% else %}
-        <p style="font-size: 10px;font-weight: bold;">Roll : User</p>
-        {% endif %}
-      </div>
-        <div class="report-container">
-          <div class="report-header">
-            <h1 class="recent-Articles">My Store</h1>
-            <a href="/all_stores">
-            <button class="view">View All</button></a>
-          </div>
-
-          <div class="report-body">
-            {% if search_stores %}
-              {% for i in search_stores %}
-              <div  style="background-color: rgba(0, 0, 255, 0.213);">
-
-                <div class="items">
-                  <div class="item1">
-                    <h3 class="t-op-nextlvl">{{i.sname}}</h3>
-                    <h3 class="t-op-nextlvl">
-                      <a href="{{ url_for('store_page.store_home', tenant=tenant) }}">Home</a>
-                    </h3>
-                    <h3 class="t-op-nextlvl"><a href="/add_product?tenant={{tenant}}">menu</a></h3>
-                    <h3 class="t-op-nextlvl label-tag">Published</h3>
-                  </div>
-                </div>
-                  {% endfor %}
-
-              {% else %}
-              {{msg}}
-              {% endif %}
-            {% for i in add %}
-            <div class="items" style="background-color: transparent;">
-              <div class="item1">
-                <h3 class="t-op-nextlvl">{{i.sname}}</h3>
-                <h3 class="t-op-nextlvl">
-                  <a href="{{ url_for('store_page.store_home', tenant=i.sname) }}">Home</a>
-                </h3>
-                {% if current_user.is_admin == True %}
-                <h3 class="t-op-nextlvl"><a href="{{ url_for('store_page.add_product', tenant=i.sname) }}">menu</a></h3>
-                {% endif %}
-                <h3 class="t-op-nextlvl label-tag">Published</h3>
-              </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+    <div class="details_sections">
+      <div class="main_details">
+        {% if search_stores %}
+          {% for i in search_stores %}
+            <div class="details">
+              <h3>Store : {{i.sname}}</h3>
+              <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}">Home</a></h3>
+            </div>
+          {% endfor %}
+        {% else %}
+          {{msg}}
+        {% endif %}
+      
+            
+      </div>
+      <div class="title" style="border-bottom: 2px solid #f1faee;">
+        <h1>My Stores</h1>
+      </div>
+      <div class="main_details">
+        {% for i in add %}
+          <main class="page-content" >
+            <div class="d_card">
+              <div class="content">
 
-    <script src="static/index.js"></script>
+                <h2 class="heading">{{i.sname}}</h2>
+                <p class="data-content">
+                  {% if current_user.is_admin == True %}
+                  <h3 ><a href="{{ url_for('store_page.add_product', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">menu</a></h3>
+                  <h3 ><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">Shop</a></h3>
+
+                  {% else %}
+                  <h3 ><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">Shop</a></h3>
+                  {% endif %}
+                </p>
+
+              </div>
+            </div>
+            
+          </main>
+          {% endfor %}
+        </div>
+        <script src="{{url_for('static',filename='index.js')}}"></script>
   </body>
 </html>
+
