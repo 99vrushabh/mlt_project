@@ -6,16 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
   <link rel="stylesheet" href="{{url_for('static',filename='add_store.css')}}" />
-
-
   <title>Document</title>
-  <style>
-    
-    
-  </style>
 </head>
-
-
+{% extends "loader.html  " %} {% block body%}
 <body>
   <div class="site">
     <img class="siteimg" src="http://www.whitewatersc.ie/wp-content/uploads/2015/07/store-costa-coffee1.png">
@@ -64,6 +57,7 @@
   </div>
  
 </body>
+{% endblock %}
 
 
 </html>

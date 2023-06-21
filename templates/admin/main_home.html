@@ -18,6 +18,8 @@
    
    </style>
   </head>
+  {% extends "loader.html  " %} {% block body%}
+
   <body>
     
 
@@ -56,7 +58,8 @@
             >
               <i
                 class="fa-solid fa-magnifying-glass"
-                style="color: #f1faee"
+                style="color: white;"
+            
               ></i>
             </button>
             
@@ -109,5 +112,7 @@
         </div>
         <script src="{{url_for('static',filename='index.js')}}"></script>
   </body>
+  {% endblock %}
+
 </html>
 

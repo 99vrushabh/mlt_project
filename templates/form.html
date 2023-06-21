@@ -8,6 +8,8 @@
     <title>Document</title>
     
   </head>
+  {% extends "loader.html  " %} {% block body%}
+
   <body>
     <section>
       <div class="main-form-container">
@@ -125,4 +127,5 @@
     <script src="{{url_for('static',filename='index.js')}}"></script>
 
   </body>
+  {% endblock %}
 </html>
