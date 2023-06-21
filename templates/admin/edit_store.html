@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static',filename='add_store.css')}}" />
+
+
+  <title>Document</title>
+  <style>
+    
+    
+  </style>
+</head>
+
+
+<body>
+  <div class="site">
+    <img class="siteimg" src="http://www.whitewatersc.ie/wp-content/uploads/2015/07/store-costa-coffee1.png">
+    <div class="add_store">
+      <form action="{{ url_for('admin_page.edit_store', tenant=schema) }}" method="post">
+        <h2 class="title" style="color: aliceblue;">Update Store</h2>
+        <div class="input-group">
+          <div class="box">
+            <span>
+                <input type="text" id="tname" name="tname" value="{{ store.sname }}" placeholder="Store name">
+            </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="box">
+            <span>
+                <input type="email" id="temail" name="temail" value="{{ store.semail }}" placeholder="Store email"/>
+            </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="box">
+            <span>
+                <input type="text" id="tphone" name="tphone" value="{{ store.sphone }}" placeholder="Store phone no."/>
+            </span>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="box">
+            <span>
+                <input type="password" id="tpassword" name="tpassword" value="{{ store.spassword }}" placeholder="Password"/>
+            </span>
+          </div>
+        </div>
+        <div class="buttons" style="display: flex;justify-content: space-between;align-items: center; margin-top: 50px;">
+          <div class="back">
+      <a href="/home"><i class="fa-sharp fa-solid fa-arrow-left fa-2xl" style="color: #ffffff;"></i></a>
+    </div>
+    <div class="add">
+        <button value="submit" id="submit">Update..</button></div></div>
+      </form>
+    </div>
+  </div>
+ 
+  </div>
+  </div>
+ 
+</body>
+
+
+</html>

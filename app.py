@@ -4,9 +4,8 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from common.database import *
 from common.models import Signup
 from tenants.admin.api import admin
-from tenants.admin.service import details_user,signup_user
+from tenants.admin.service import authenticate, details_user,signup_user
 from tenants.store.api import store
-
 
 def create_app():
     app=Flask(__name__)
@@ -54,23 +53,24 @@ def signup():
         return redirect(url_for('login'))   
     return render_template("form.html")
 
-@app.route('/login' ,methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = Signup.query.filter_by(
-            email=request.form.get("email")).first_or_404()
-        if user.password == request.form.get("password"):
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = authenticate(email, password)
+        if user:
             login_user(user)
-            flash("you are successfuly logged in")
-            notification = "Login Successfully...",200
-            return redirect(url_for('admin_page.admin_home',user_id=user.id,notification=notification))
+            return redirect(url_for('admin_page.admin_home', user_id=user.id))
         else:
-            msg = "Username or Password is wrong"
+            msg = 'Username or Password is wrong'
             return render_template('form.html', msg=msg)
-    return render_template("form.html")
+
+    return render_template('form.html')
 
 @app.route("/profile")
-@login_required     
+@login_required
 def profile():
     user=current_user
     return render_template('profile.html',name=user.name,email=user.email,phone=user.phone)
@@ -82,10 +82,10 @@ def details():
         user=Signup.query.all()
         return render_template('users.html',users=user)
     else:
-        return jsonify({"message":"Unauthorized access"})
+        return jsonify({"msg":"Unauthorized access"})
 
 @app.route('/logout')
-@login_required
+
 def logout():   
     logout_user()
     Signup.is_active=False   

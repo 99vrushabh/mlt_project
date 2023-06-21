@@ -38,23 +38,21 @@
             </button>
           </div>
         </form>
-        {% if searchproducts %}
+        {% if search_result %}
           <div>
             <h4>Search:</h4>
-            {% for s in searchproducts %}
+            {% for s in search_result %}
             <div style="margin: 25px 0">
-              <div class="custom-ol">
-                  
-                  <li>{{s.name}} <br> Rs.{{s.price}}</li>
-        
+              <div class="custom-ol"> 
+                  <li>{{s.name}} <br> Rs.{{s.price}}</li>       
               </div>
             </div>
             {% endfor %}
           </div>
       </div>
       {% else %}
-      <h4>Search :</h4>
-      {{msg}} {% endif %}
+   <h4>Search :</h4>{{msg}}
+       {% endif %}
 
      
       

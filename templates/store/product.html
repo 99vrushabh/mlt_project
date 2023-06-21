@@ -22,8 +22,8 @@
       <form action="{{ url_for('store_page.add_product', tenant=tenant) }}" method="post">
         <input
           type="text"
-          name="pname"
-          id="pname"
+          name="name"
+          id="name"
           placeholder="*product name"
           required
           data-validation-required-message="Please enter your product"
@@ -49,8 +49,8 @@
         <br />
         <input
           type="number"
-          name="pprice"
-          id="pprice"
+          name="price"
+          id="price"
           placeholder="*price"
           required
           data-validation-required-message="Please enter your price"

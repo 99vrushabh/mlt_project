@@ -7,7 +7,8 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 from common.database import switch_tenant
-from common.models import Signup
+from common.models import Product, Signup
+from tenants.admin.service import all_products, product_add, search_products
 
 store = Blueprint('store_page', __name__,
                   template_folder='templates', static_folder='static')
@@ -23,33 +24,22 @@ def store_home(tenant):
     return render_template('store/home.html',schema=tenant)
 
 
-@store.route('/store_menu/<string:tenant>', methods=['GET','POST'])
+@store.route('/store_menu/<string:tenant>', methods=['GET', 'POST'])
 def store_menu(tenant):
-    schema=tenant
+    schema = tenant
+    search_result = None
     try:
         with session.begin():
-            display = text(f'SELECT * FROM "{schema}"."product" ')
-            menu=session.execute(display)
-            result= menu.fetchall()
-
-            # for search products
-            msg=""  
+            result = all_products(session, schema)
             if request.method == 'POST':
                 search = request.form.get('search')
-                if search:
-                    searchproducts = session.execute(
-                        text(f'SELECT * FROM "{schema}"."product" WHERE LOWER(name) LIKE :value'),
-                        {"value": f"%{search}%"}
-                        )
-                    if not searchproducts:  
-                        msg = "Product not found"
-                    return render_template('store/menu.html',schema=tenant,searchproducts=searchproducts,msg=msg,result=result)
-                else:
-                    return render_template('store/menu.html',schema=tenant,result=result,msg=msg)
+                search_result, msg = search_products(session, search, schema)
+                msg="Product not found"
+                return render_template('store/menu.html', schema=tenant, result=result,msg=msg ,search_result=search_result)
+                
     except SQLAlchemyError as e:
         return str(e)
-    return render_template('store/menu.html',schema=tenant,result=result,msg=msg)
-
+    return render_template('store/menu.html', schema=tenant, result=result ,search_result=search_result)
 
 @store.route('/store_rewards/<string:tenant>')
 def store_rewards(tenant):
@@ -60,29 +50,20 @@ def store_rewards(tenant):
 @store.route('/add_product/<string:tenant>', methods=['GET', 'POST'])
 @switch_tenant
 def add_product(tenant):
-    g.tenant= tenant
+    schema=g.tenant= tenant
     try:
         if request.method == 'POST':
-            id = str(uuid.uuid4())
-            name = request.form.get("pname")
-            pinfo = request.form.get("pinfo")
-            pdesc = request.form.get("pdesc")
-            price = request.form.get("pprice")
-            schema = tenant
-           
             if schema:
-                query = text(f'INSERT INTO "{schema}"."product" ("id", "name", "pinfo", "pdesc", "price") '
-                             f'VALUES (:id, :name, :pinfo, :pdesc, :price)')
-
-                db.session.execute(
-                    query, {'id': id, 'name': name, 'pinfo': pinfo, 'pdesc': pdesc, 'price': price})
-                db.session.commit()
+                add_new_product = product_add()
+                session.add(add_new_product)
+                session.commit()
                 return redirect(url_for('store_page.store_home',tenant=tenant))
             else:   
                 return "Tenant not specified"
     except Exception as e:
         return str(e)
-
+    finally:
+        session.close()
     return render_template('store/product.html', tenant=tenant)
 
 @store.route('/order/<string:tenant>')

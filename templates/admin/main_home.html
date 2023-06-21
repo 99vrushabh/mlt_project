@@ -59,6 +59,7 @@
                 style="color: #f1faee"
               ></i>
             </button>
+            
           </form>
         </div>
       </div>
@@ -83,7 +84,7 @@
       </div>
       <div class="main_details">
         {% for i in add %}
-          <main class="page-content" >
+          <main class="page-content">
             <div class="d_card">
               <div class="content">
 
@@ -92,6 +93,8 @@
                   {% if current_user.is_admin == True %}
                   <h3 ><a href="{{ url_for('store_page.add_product', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">menu</a></h3>
                   <h3 ><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">Shop</a></h3>
+                  <h3 ><a href="{{ url_for('admin_page.edit_store', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">details</a></h3>
+
 
                   {% else %}
                   <h3 ><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"  style="text-decoration: none;color: #f1faee;">Shop</a></h3>
