@@ -2,26 +2,31 @@ from datetime import date
 import uuid
 from flask import Blueprint, g, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-from sqlalchemy import create_engine
+from sqlalchemy import and_, create_engine
 from sqlalchemy.orm import sessionmaker
 from common.models import Trace, new_store
 from common.database import switch_tenant,db
-from tenants.admin.service import create_table_store, details_user, find_store, store_add
-admin = Blueprint('admin_page', __name__, template_folder='templates', static_folder='static')
+from tenants.admin.service import create_table_store, store_add
+from tenants.store.service import find_store
+from tenants.user.service import details_user
+
+
+admin_api = Blueprint('admin_page', __name__, template_folder='templates', static_folder='static')
     
 engine = create_engine('postgresql://postgres:postgres@localhost:1111/postgres')
 Session = sessionmaker(bind=engine)
 session  = Session()
 
-@admin.route("/home", methods=['GET', 'POST'])
+
+
+@admin_api.route("/home", methods=['GET', 'POST'])
 @login_required
 def admin_home():
     user=details_user()
     if current_user.is_admin == True:
-        add = session.query(new_store).filter(new_store.create_by == current_user.email).all()
+        add = session.query(new_store).filter(new_store.create_by == current_user.email, new_store.is_arch == False).all()
     else :
-        user = details_user()
-        search=add = new_store.query.all()
+        search = add = new_store.query.all()
         if request.method == 'POST':
             search = request.form.get("search").lower().replace(" ", "_")
             if search:
@@ -32,7 +37,7 @@ def admin_home():
     return render_template('admin/main_home.html',use=user,add=add)
 
 
-@admin.route('/edit_store/<string:tenant>', methods=['GET', 'POST'])
+@admin_api.route('/edit_store/<string:tenant>', methods=['GET', 'POST'])
 @login_required
 def edit_store(tenant):
     if current_user.is_admin == True :
@@ -43,6 +48,7 @@ def edit_store(tenant):
             store.semail = request.form.get('temail')
             store.sphone = request.form.get('tphone')
             store.spassword = request.form.get('tpassword')
+            store.update_at = date.today()
 
             db.session.commit()
             new_update = Trace(
@@ -50,7 +56,6 @@ def edit_store(tenant):
                 update_on=store.sname,
                 update_by=current_user.email,
             )
-            new_store.update_at = date.today()
             db.session.add(new_update)
             db.session.commit()
             return redirect(url_for('admin_page.admin_home'))
@@ -60,14 +65,14 @@ def edit_store(tenant):
     return render_template('admin/edit_store.html', store=store, schema=schema)
 
 
-@admin.route('/add_new', methods=['GET', 'POST'])
+@admin_api.route('/add_new', methods=['GET', 'POST'])
 @switch_tenant
 def add_new():
     if request.method == 'POST':
         new_one = store_add()
 
         try:
-            schema = g.tenant = new_one.sname 
+            schema = g.tenant =new_one.sname
             db.choose_tenant(schema)
             session.add(new_one)
             create_table_store(session,schema)
@@ -81,4 +86,15 @@ def add_new():
     return render_template('admin/add_new.html')
 
 
+@admin_api.route('/archive/<string:tenant>',methods=['POST'])
+@login_required
+@switch_tenant
+def arch_store(tenant):
+    schema_name = store_add()
+    schema = g.tenant = schema_name.sname 
+    if current_user.is_admin==True:
+        db.choose_tenant(schema)
+        store =  store_add()
+        store.is_arch  = True
+        db.session.commit()
 

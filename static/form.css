@@ -9,7 +9,6 @@
 :root {
   --theam: #1d3557;
   --background: #f1faee;
-  --hover: #457b9d;
   --extra1: #a8dadc;
   --extra2: #e63946;
 }
@@ -17,7 +16,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("https://www.yudiz.com/codepen/animation-form/banner.jpg");
+  background-image: url("https://images.unsplash.com/photo-1481833761820-0509d3217039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FmZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80");
   background-size: cover;
   background-position: center;
   min-height: 700px;

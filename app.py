@@ -1,12 +1,10 @@
-import uuid
-from flask import Flask, flash, g, jsonify, redirect, render_template, request, url_for
-from flask_login import LoginManager, current_user, login_required, login_user, logout_user
+from flask import Flask, jsonify, redirect, render_template, request
+from flask_login import LoginManager, current_user, login_required
 from common.database import *
 from common.models import Signup
-from tenants.admin.api import admin
-from tenants.admin.service import authenticate, details_user,signup_user
-from tenants.store.api import store
-
+from tenants.admin.api import admin_api
+from tenants.store.api import store_api
+from tenants.user.api import user_api
 def create_app():
     app=Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:1111/postgres'
@@ -19,8 +17,9 @@ def create_app():
     db.init_app(app)
     with app.app_context():
         db.create_all()
-    app.register_blueprint(admin)
-    app.register_blueprint(store)
+    app.register_blueprint(user_api)
+    app.register_blueprint(admin_api)
+    app.register_blueprint(store_api)
     return app
 
 
@@ -44,36 +43,6 @@ def before_request():
 def home():
     return redirect('login')
    
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        user = signup_user()
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('login'))   
-    return render_template("form.html")
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        user = authenticate(email, password)
-        if user:
-            login_user(user)
-            return redirect(url_for('admin_page.admin_home', user_id=user.id))
-        else:
-            msg = 'Username or Password is wrong'
-            return render_template('form.html', msg=msg)
-
-    return render_template('form.html')
-
-@app.route("/profile")
-@login_required
-def profile():
-    user=current_user
-    return render_template('profile.html',name=user.name,email=user.email,phone=user.phone)
 
 @app.route("/superadmin_userdetails")
 @login_required
@@ -84,12 +53,7 @@ def details():
     else:
         return jsonify({"msg":"Unauthorized access"})
 
-@app.route('/logout')
 
-def logout():   
-    logout_user()
-    Signup.is_active=False   
-    return redirect('login')
 
 if __name__ == '__main__':
     app.run(debug=True)

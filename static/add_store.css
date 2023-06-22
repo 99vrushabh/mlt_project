@@ -9,7 +9,7 @@ body {
   position: absolute;
   width: 600px;
   height: 92vh;
-  background: #356893;
+  background: #933535;
   top: 20px;
   left: 55%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -36,7 +36,7 @@ input[type="radio"]:after {
   height: 10px;
   border-radius: 10px;
   position: relative;
-  background-color: #356893;
+  background-color: #933535;
   content: "";
   display: inline-block;
   visibility: visible;
@@ -57,7 +57,7 @@ input[type="radio"]:checked:after {
 
 button {
   border: 2px solid white;
-  background-color: #356893;
+  background-color: #933535;
   color: white;
   font-size: 1.4em;
   font-family: Verdana;
@@ -69,7 +69,7 @@ button {
 }
 
 button:hover {
-    border: 2px solid #356893;
+    border: 2px solid #933535;
     background-color: #fff;
     color: #356893;
     font-family: Verdana;
@@ -81,7 +81,7 @@ input[type="checkbox"]:after {
   width: 10px;
   height: 10px;
   position: relative;
-  background-color: #356893;
+  background-color: #933535;
   content: "";
   display: inline-block;
   visibility: visible;

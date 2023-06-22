@@ -26,7 +26,7 @@ class new_store(db.Model):
     create_at = Column(String(20),default=date.today(),nullable=False)
     update_at = Column(String(20),default=date.today(),nullable=False)
     is_active = Column(Boolean,default=True)
-    is_arch = Column(Boolean,default=False)
+    is_arch = Column(Boolean,default=False) 
 
 
 class Product(db.Model):
