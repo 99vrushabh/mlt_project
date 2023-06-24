@@ -1,3 +1,4 @@
+import random
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from common.database import db
@@ -14,7 +15,7 @@ def signup():
         user = signup_user()
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('login'))   
+        return redirect(url_for('user_api.login'))   
     return render_template("form.html")
 
 @user_api.route('/login', methods=['GET', 'POST'])

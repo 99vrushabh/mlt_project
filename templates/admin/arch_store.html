@@ -15,68 +15,29 @@
 
   </style>
 </head>
-{% extends "loader.html " %} {% block body%}
+{% extends "loader.html" %} {% block body%}
 
-<body style="background: url(https://img.freepik.com/premium-photo/bokeh-background-street-bar-beer-restaurant-outdoor-asia-people-sit-chill-out-hang-out-dinner-listen-music-together-avenue-happy-life-work-hard-play-hard-generative-ai_438099-16522.jpg?w=996);background-position: center;background-size: cover;background-repeat: no-repeat;">
-
-  <div class="details_sections">
-    <div class="main_details">
-      {% if search_stores %}
-      {% for i in search_stores %}
-      <div class="details">
-        <h3>Store : {{i.sname}}</h3>
-        <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}">Home</a></h3>
-      </div>
-      {% endfor %}
-      {% else %}
-      {{msg}}
-      {% endif %}
-
-
-    </div>
-  </div>
-
-  <div class="main" style="width: 100%;">
+<body>
+  <div class="main">
     <div class="wrapper">
       <div class="menu">
         <div class="flyout"><a href="/home"><i class="fa-solid fa-house"></i></a></div>
         <div class="flyout"><a href="/add_new"><i class="fa-solid fa-plus"></i></a></div>
         <div class="flyout"><a href="/profile"><i class="fa-solid fa-user"></i></a></div>
-        {% if current_user.is_admin == True %}
-        <div class="flyout"><a href="/archive_store"><i class="fa-solid fa-archive"></i></a></div>
-        {% endif %}
         <div class="flyout"><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></div>
         <div class="flyout"><a href="#"><i class="fa-solid fa-gear"></i></a></div>
         <i class="fa-solid fa-arrow-up hidden"></i>
         <i class="fa-solid fa-bars"></i>
       </div>
     </div>
-    <div class="searchbar">
-      <div id="wrap">
-        <form action="/home" method="post">
-          <input id="search" name="search" type="text" placeholder="What're we looking for ?"
-            autocomplete="False" /><button id="searcht" value="submit" type="submit" style="
-                height: 41px;
-                width: 50px;
-                border: none;
-                background-color: transparent;
-                margin-left: -50px;
-              ">
-            <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
-          </button>
-
-        </form>
-      </div>
-    </div>
   </div>
   <div class="details_sections">
     <div class="title" style="border-bottom: 2px solid #f1faee;">
-      <h1>My Stores</h1>
+      <h1>Archive Stores</h1>
     </div>
     <div class="main_details">
       {% if add %}
       {% for i in add %}
-      {% if i.is_arch == false %}
       <main class="page-content">
         <div class="d_card">
           <div class="content">
@@ -90,9 +51,8 @@
                 style="text-decoration: none;color: #f1faee;">Shop</a></h3>
             <h3><a href="{{ url_for('admin_page.edit_store', tenant=i.sname) }}"
                 style="text-decoration: none;color: #f1faee;">details</a></h3>
-            <h3> <a href="{{ url_for('admin_page.arch_store', tenant=i.sname) }}"
-                style="text-decoration: none;color: #ff0000;">Archive</a></h3>
-
+            <h3> <a href="{{ url_for('admin_page.back_store', tenant=i.sname) }}"
+                style="text-decoration: none;color: #00ff2a;">Get back</a></h3>
             {% else %}
             <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"
                 style="text-decoration: none;color: #f1faee;">Shop</a></h3>
@@ -104,7 +64,6 @@
         </div>
 
       </main>
-      {% endif %}
       {% endfor %}
       {% else %}
       <h5>No store Found...</h5>

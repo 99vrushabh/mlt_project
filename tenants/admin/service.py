@@ -46,3 +46,7 @@ def product_add():
             price=request.form.get("price")
             )
     return add_product  
+
+
+
+# function for get back from archive

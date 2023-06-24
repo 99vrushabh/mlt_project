@@ -1,75 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
-
-    <title>Document</title>
-    
-  </head>
-  {% extends "loader.html  " %} {% block body%}
-
-  <body>
-    <section>
-      <div class="main-form-container">
-        <div id="form_section" class="form-container">
-          <div class="login-form form-wraper">
-            <div>
-              <div class="form-title">
-                <h2>Login</h2>
-              </div>
-              <form action="/login" method="post">
-                <div class="input-group">
-                  <div class="box">
-                    <span>
-                      <input
-                        placeholder="Email"
-                        class="myInput"
-                        type="text"
-                        name="email"
-                        id="email"
-                        autocomplete="off"
-                      />
-                    </span>
-                  </div>
-                </div>
-                <div class="input-group">
-                  <div class="box">
-                    <span>
-                      <input
-                        placeholder="Password"
-                        class="myInput"
-                        type="password"
-                        name="password"
-                        id="password"
-                        autocomplete="off"
-                      />
-                    </span>
-                  </div>
-                </div>
-                
-                {{msg}}
-                <div class="action-button">
-                  <button value="submit" id="submit">Login</button>
-                </div>
-              </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
+  <title>Document</title>
+</head>
+{% extends "loader.html" %}
+{% block body %}
+<body>
+  <section>
+    <div class="main-form-container">
+      <div id="form_section" class="form-container">
+        <div class="login-form form-wraper">
+          <div>
+            <div class="form-title">
+              <h2>Login</h2>
             </div>
-          </div>
-          <div class="signUp-form form-wraper">
-            <div>
-              <div class="form-title">
-                <h2>Sign Up</h2>
-              </div>
-        <form action="/signup" method="post">
-
+            <form action="/login" method="post">
               <div class="input-group">
                 <div class="box">
                   <span>
                     <input
-                      placeholder="Full Name"
+                      placeholder="Email"
                       class="myInput"
                       type="text"
+                      name="email"
+                      id="email"
                       autocomplete="off"
                     />
                   </span>
@@ -78,7 +35,55 @@
               <div class="input-group">
                 <div class="box">
                   <span>
-                      <input placeholder="Email" class="myInput" type="text" autocomplete="off"/>
+                    <input
+                      placeholder="Password"
+                      class="myInput"
+                      type="password"
+                      name="password"
+                      id="password"
+                      autocomplete="off"
+                    />
+                  </span>
+                </div>
+              </div>
+              <button class="done_button" type="button" onclick="togglePasswordVisibility('password', 'toggleBtn')">Show</button>
+              {{msg}}
+              <div class="action-button">
+                <button value="submit" id="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="signUp-form form-wraper">
+          <div>
+            <div class="form-title">
+              <h2>Sign Up</h2>
+            </div>
+            <form action="/signup" method="post">
+              <div class="input-group">
+                <div class="box">
+                  <span>
+                    <input
+                      placeholder="Full Name"
+                      class="myInput"
+                      type="text"
+                      name="name"
+                      id="name"
+                      autocomplete="off"
+                    />
+                  </span>
+                </div>
+              </div>
+              <div class="input-group">
+                <div class="box">
+                  <span>
+                    <input
+                      placeholder="Email"
+                      class="myInput"
+                      type="text"
+                      name="email"
+                      autocomplete="off"
+                    />
                   </span>
                 </div>
               </div>
@@ -89,6 +94,8 @@
                       placeholder="Mobile No."
                       class="myInput"
                       type="number"
+                      name="phone"
+                      id="phone"
                       autocomplete="off"
                     />
                   </span>
@@ -101,31 +108,32 @@
                       placeholder="Password"
                       class="myInput"
                       type="password"
+                      name="password"
+                      id="signupPassword"
                       autocomplete="off"
                     />
                   </span>
                 </div>
               </div>
+              <button class="done_button2" type="button" onclick="togglePasswordVisibility('signupPassword', 'signupToggleBtn')">Show</button>
               <div class="action-button">
                 <button value="submit" id="submit">Sign Up</button>
               </div>
-        </form>
-
-            </div>
-          </div>
-        </div>
-        <div id="multiple-btn" class="bg-btn-container">
-          <div class="action-button">
-            <button>Login</button>
-          </div>
-          <div class="action-button">
-            <button>Sign Up</button>
+            </form>
           </div>
         </div>
       </div>
-    </section>
-    <script src="{{url_for('static',filename='index.js')}}"></script>
-
-  </body>
-  {% endblock %}
+      <div id="multiple-btn" class="bg-btn-container">
+        <div class="action-button">
+          <button onclick="showLoginForm()">Login</button>
+        </div>
+        <div class="action-button">
+          <button onclick="showSignupForm()">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="{{url_for('static',filename='index.js')}}"></script>
+</body>
+{% endblock %}
 </html>

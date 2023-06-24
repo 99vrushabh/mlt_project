@@ -4,6 +4,11 @@ const menuBars = document.querySelector(".fa-bars");
 const menuArrow = document.querySelector(".fa-arrow-up");
 const flyoutWrap = document.querySelector(".flyout-wrap");
 const flyouts = document.querySelectorAll(".flyout");
+const formContainer = document.getElementById("form_section");
+const loginForm = document.querySelector(".login-form");
+const signupForm = document.querySelector(".signUp-form");
+const loginButton = document.querySelector("#multiple-btn button:nth-child(1)");
+const signupButton = document.querySelector("#multiple-btn button:nth-child(2)");
 
 menu.addEventListener("click", function () {
   menuBars.classList.toggle("hidden");
@@ -34,3 +39,41 @@ buttons.forEach((button) => {
     form_container.classList.toggle("left-right");
   });
 });
+
+
+// hide/show password 
+loginForm.style.display = "block";
+signupForm.style.display = "none";
+
+// Add event listeners to buttons
+loginButton.addEventListener("click", showLoginForm);
+signupButton.addEventListener("click", showSignupForm);
+
+// Function to show login form and hide signup form
+function showLoginForm() {
+  formContainer.classList.remove("left-right");
+  loginForm.style.display = "block";
+  signupForm.style.display = "none";
+}
+
+// Function to show signup form and hide login form
+function showSignupForm() {
+  formContainer.classList.add("left-right");
+  loginForm.style.display = "none";
+  signupForm.style.display = "block";
+}
+
+// Function to toggle password visibility
+function togglePasswordVisibility(inputId, toggleBtnId) {
+  var passwordInput = document.getElementById(inputId);
+  var toggleButton = document.getElementById(toggleBtnId);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    toggleButton.textContent = "Hide";
+  } else {
+    passwordInput.type = "password";
+    toggleButton.textContent = "Show";
+  }
+}
+  

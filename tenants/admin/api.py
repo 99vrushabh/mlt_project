@@ -2,9 +2,9 @@ from datetime import date
 import uuid
 from flask import Blueprint, g, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-from sqlalchemy import and_, create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from common.models import Trace, new_store
+from common.models import Signup, Trace, new_store
 from common.database import switch_tenant,db
 from tenants.admin.service import create_table_store, store_add
 from tenants.store.service import find_store
@@ -70,13 +70,17 @@ def edit_store(tenant):
 def add_new():
     if request.method == 'POST':
         new_one = store_add()
-
+        user = Signup.query.filter_by(name=current_user.name).first()
         try:
             schema = g.tenant =new_one.sname
             db.choose_tenant(schema)
             session.add(new_one)
             create_table_store(session,schema)
             session.commit()   
+            if not user.is_admin:
+                user.is_admin = True
+                db.session.commit()
+            
             return redirect(url_for('admin_page.admin_home'))
         except Exception as e:
             return str(e)
@@ -86,15 +90,37 @@ def add_new():
     return render_template('admin/add_new.html')
 
 
-@admin_api.route('/archive/<string:tenant>',methods=['POST'])
+@admin_api.route('/archive/<string:tenant>',methods=['POST', 'GET'])
 @login_required
 @switch_tenant
 def arch_store(tenant):
-    schema_name = store_add()
-    schema = g.tenant = schema_name.sname 
-    if current_user.is_admin==True:
+    if request.method == 'GET':
+        schema_name = new_store
+        schema = g.schema = schema_name.sname
         db.choose_tenant(schema)
-        store =  store_add()
-        store.is_arch  = True
-        db.session.commit()
+        if current_user.is_admin==True:
+            store =  new_store.query.filter_by(sname=tenant).first()
+            store.is_arch  = True
+            db.session.commit()
+            return redirect(url_for('admin_page.archive_store'))
 
+
+@admin_api.route('/archive_store',methods=['GET','POST'])
+def archive_store():
+    add = new_store.query.filter_by(is_arch=True, create_by=current_user.email).all()
+    return render_template('admin/arch_store.html',add=add)
+
+@admin_api.route('/back_store/<string:tenant>',methods=['GET','POST'])
+@login_required
+@switch_tenant
+def back_store(tenant):
+    if request.method == 'GET':
+        schema_name = new_store
+        schema = g.schema = schema_name.sname
+        db.choose_tenant(schema)
+        if current_user.is_admin==True:
+            store =  new_store.query.filter_by(sname=tenant).first()
+            store.is_arch  = False
+            db.session.commit()
+            return redirect(url_for('admin_page.admin_home'))
+    return render_template('admin/arch_store.html')

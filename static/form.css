@@ -118,6 +118,24 @@ body {
 .form-wraper .input-group:not(:last-child) {
   margin-bottom: 30px;
 }
+
+.done_button,.done_button2{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  outline: none;
+  padding: 0;
+  margin-left: 5px;
+  position: absolute;
+  top: 52.5%;
+  left: 75%;
+  z-index: 10000;
+}
+.done_button2{
+  top:74%;
+}
 .signUp-form {
   transform: translateX(100%);
 }

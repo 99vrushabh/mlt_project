@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 from common.database import switch_tenant
+from common.models import Signup
+from common.database import db
 from tenants.store.service import all_products,  search_products
 from tenants.admin.service import product_add
 
@@ -44,25 +46,32 @@ def store_rewards(tenant):
     tenant=tenant
     return render_template('store/rewards.html',schema=tenant)
 
+from flask import g
 
 @store_api.route('/add_product/<string:tenant>', methods=['GET', 'POST'])
 @switch_tenant
-def add_product(tenant):
-    schema=g.tenant= tenant
+def add_product(tenant):        
+    schema = g.tenant = tenant
+
     try:
         if request.method == 'POST':
             if schema:
                 add_new_product = product_add()
                 session.add(add_new_product)
                 session.commit()
-                return redirect(url_for('store_page.store_home',tenant=tenant))
+                
+              
+                return redirect(url_for('store_page.store_home', tenant=tenant))
             else:   
                 return "Tenant not specified"
     except Exception as e:
         return str(e)
     finally:
         session.close()
+    
     return render_template('store/product.html', tenant=tenant)
+
+
 
 @store_api.route('/order/<string:tenant>')
 @switch_tenant

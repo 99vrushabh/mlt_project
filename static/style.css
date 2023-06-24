@@ -10,7 +10,10 @@
   body {
 	padding: 0px 50px;
 	background: url(https://images.unsplash.com/photo-1481833761820-0509d3217039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FmZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80);
-    backdrop-filter: brightness(0.5);
+    backdrop-filter: brightness(0.4);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
 	font-family: 'Poppins', sans-serif;
   }
   .menu,
@@ -102,6 +105,9 @@
 	}
 	&:nth-of-type(5) {
 	  transform: translate(0rem, 22.3rem);
+	}
+	&:nth-child(6){
+		transform: translate(0rem, 27.9rem);
 	}
   }
 
