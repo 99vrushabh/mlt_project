@@ -4,8 +4,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 from common.database import switch_tenant
-from common.models import Signup
-from common.database import db
 from tenants.store.service import all_products,  search_products
 from tenants.admin.service import product_add
 
@@ -74,5 +72,5 @@ def add_product(tenant):
 @switch_tenant
 def order(tenant):
     g.tenant= tenant
-    name = current_user.name
+    name = current_username
     return render_template('store/order.html',tenant=tenant,name=name)

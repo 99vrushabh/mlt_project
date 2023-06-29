@@ -1,13 +1,14 @@
-from flask import Blueprint, redirect, render_template, request, url_for
-from flask_login import current_user, login_required
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from common.models import Signup, new_store
-from common.database import switch_tenant, db
 from common.service import change_tenant
-from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, update_store
+from common.models import Signup, new_store
 from tenants.store.service import find_store
+from common.database import switch_tenant, db
+from flask_login import current_user, login_required
 from tenants.user.service import admin_user, details_user   
+from flask import Blueprint, redirect, render_template, request, url_for
+from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, update_store
 
 
 admin_api = Blueprint('admin_page', __name__,

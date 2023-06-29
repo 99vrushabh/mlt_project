@@ -7,11 +7,15 @@ from common.models import Comments, Signup
 from passlib.hash import bcrypt
 
 
+
+
 #function for user details 
 def details_user():
-    user_all = current_user
-    return user_all
+    user = current_user
+    return user
 
+
+# function for Signup user
 def signup_user():
     id =str(uuid.uuid4())
     name=request.form.get("name")  
@@ -28,7 +32,9 @@ def signup_user():
 
 
 
-def authenticate(email, password):
+def authenticate():
+    email = request.form.get('email')
+    password = request.form.get('password')
     user = Signup.query.filter_by(email=email).first()
     if user:
         try:
@@ -40,17 +46,21 @@ def authenticate(email, password):
              pass
     return None
 
-def comment_user(comment_title, comment_desc, comment_by):
-    add_comment=Comments(
-        id=str(uuid.uuid4()),
-        comment_title=comment_title,
-        comment_desc=comment_desc,
-        comment_by=comment_by
-    )
-    return add_comment
 
 # give user access of  admin
 def admin_user(user):
      if not user.is_admin:
                 user.is_admin = True
                 db.session.commit()
+
+
+# function for add comment in a database
+def new_comment():
+    comment = Comments(
+                id=str(uuid.uuid4()),
+                comment_title=request.form.get("comment_title"),
+                comment_desc=request.form.get("comment_desc"),
+                comment_by=str(current_useremail)
+            )
+    db.session.add(comment)
+    db.session.commit()

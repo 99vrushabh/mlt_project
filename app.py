@@ -1,10 +1,13 @@
-from flask import Flask, jsonify, redirect, render_template, request
-from flask_login import LoginManager, current_user, login_required
+import os
+from flask import Flask, redirect, request
+from flask_login import LoginManager
 from common.database import *
 from common.models import Signup
 from tenants.admin.api import admin_api
 from tenants.store.api import store_api
 from tenants.user.api import user_api
+
+
 def create_app():
     app=Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:1111/postgres'
@@ -14,6 +17,7 @@ def create_app():
     }
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'vrushabh@_2611'
+   
     db.init_app(app)
     with app.app_context():
         db.create_all()
@@ -31,6 +35,16 @@ login_manager.init_app(app)
 def load_user(user_id):
     return Signup.query.get(user_id)
 
+
+# functions
+def add_photo(file):
+    photos_path = os.path.join(os.getcwd(), 'static', 'photos')
+    UPLOAD_FOLDER = photos_path
+    folder = app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    filename = file.filename
+    file.save(os.path.join(folder, filename))
+
+
 # apis 
 @app.before_request
 def before_request():
@@ -43,17 +57,5 @@ def before_request():
 def home():
     return redirect('login')
    
-
-@app.route("/superadmin_userdetails")
-@login_required
-def details():
-    if current_user.is_superadmin == True:
-        user=Signup.query.all()
-        return render_template('users.html',users=user)
-    else:
-        return jsonify({"msg":"Unauthorized access"})
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)

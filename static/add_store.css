@@ -19,10 +19,9 @@ body {
   position: relative;
   display: block;
   margin: auto;
-  max-height: 350px;
+  max-height: 337px;
   top: -100px;
-}
-
+} 
 .siteform {
   position: relative;
   top: -200px;
@@ -100,7 +99,7 @@ input[type="checkbox"]:checked:after {
 }
 .add_store {
   position: absolute;
-  top: 36%;
+  top: 24%;
   text-align: center;
   margin: 5px 107px;
   width: 63%;
