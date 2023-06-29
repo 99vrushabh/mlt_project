@@ -37,6 +37,14 @@ class Product(db.Model):
     pdesc = Column(String(150))
     price = Column(Integer,nullable=False)
 
+class Comments(db.Model):
+    __tablename__ = 'comments'
+    id = Column(String(50), primary_key=True)
+    comment_title = Column(String(250), nullable=False)
+    comment_desc = Column(String(250), nullable=False)
+    comment_by = Column(String(50),ForeignKey(Signup.email))
+
+
 class Trace(db.Model):
     __tablename__ = 'Trace'
     __table_args__ = {'schema': 'myschema'}
