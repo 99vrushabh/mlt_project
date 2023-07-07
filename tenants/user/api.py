@@ -1,7 +1,8 @@
 from common.models import Signup
+from tenants.admin.api import session
 from common.database import switch_tenant
+from tenants.user.service import authenticate, comments, details_user, signup_user
 from flask_login import login_required, login_user, logout_user
-from tenants.user.service import authenticate, details_user, new_comment, signup_user
 from flask import Blueprint, redirect, render_template, request, url_for , g
 
 user_api = Blueprint('user_api',__name__,template_folder='templates',static_folder='static')
@@ -36,14 +37,22 @@ def profile():
 @login_required
 @switch_tenant
 def comment(tenant):
-    if request.method == 'POST':
-        if g.tenant:
-            post_comment = new_comment()
-            return redirect(url_for('store_page.store_home', tenant=g.tenant))
-        else:
-            return "There is no store."
+    if tenant:
+        if request.method == 'POST':
+            new_comment= comments(tenant)
+            if new_comment is not None:
+                session.add(new_comment)
+                session.commit()
+                session.close()
+                return redirect(url_for('store_page.store_home', tenant=tenant))
+            else:
+                session.close()
+                return "not post"
 
-    return render_template('store/home.html', tenant=g.tenant)
+    else:
+        return "There is no store."
+
+    return render_template('store/home.html', schema=g.tenant)
 
 
 @user_api.route('/logout')

@@ -1,6 +1,6 @@
 from datetime import date
 from flask_login import UserMixin
-from sqlalchemy import ARRAY, Boolean, Column, Float, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from common.database import db
 
 class Signup(UserMixin,db.Model):
@@ -30,7 +30,7 @@ class new_store(db.Model):
 
 
 class Product(db.Model):
-    __tablename__ = 'product'
+    __tablename__ = 'Product'
     id = Column(String(50), primary_key=True)
     name = Column(String(50),nullable=False)
     pinfo = Column(String(100))
@@ -38,12 +38,12 @@ class Product(db.Model):
     price = Column(Integer,nullable=False)
 
 class Comments(db.Model):
-    __tablename__ = 'comments'
+    __tablename__ = 'Comments'
     id = Column(String(50), primary_key=True)
     comment_title = Column(String(250), nullable=False)
     comment_desc = Column(String(250), nullable=False)
     comment_by = Column(String(50),ForeignKey(Signup.email))
-
+    comment_at = Column(String(20),default=date.today(),nullable=False)
 
 class Trace(db.Model):
     __tablename__ = 'Trace'

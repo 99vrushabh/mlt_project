@@ -12,24 +12,23 @@ def find_store(search):
             msg = "Store not found"
         return search_stores,msg
     else:
-        return [],msg
+        return msg
     
 def search_products(session, search, schema):
     msg=""
     if search:
         searchproducts = session.execute(
-            text(f'SELECT * FROM "{schema}"."product" WHERE LOWER(name) LIKE :value'),
+            text(f'SELECT * FROM "{schema}"."Product" WHERE LOWER(name) LIKE :value'),
             {"value": f"%{search}%"}
         )
         if not searchproducts:
-            msg = "Product not found"
             return msg
         else:
-            return searchproducts.fetchall()
+            return searchproducts
     else:
         return [],msg
     
 def all_products(session, schema):
-    display = text(f'SELECT * FROM "{schema}"."product" ')
+    display = text(f'SELECT * FROM "{schema}"."Product" ')
     menu = session.execute(display)
     return menu.fetchall()

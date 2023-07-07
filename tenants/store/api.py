@@ -1,6 +1,6 @@
 from flask import Blueprint, g, redirect, render_template, request, url_for
 from flask_login import current_user
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 from common.database import switch_tenant
@@ -13,13 +13,17 @@ store_api = Blueprint('store_page', __name__,
 engine = create_engine('postgresql://postgres:postgres@localhost:1111/postgres')
 Session = sessionmaker(bind=engine)
 session = Session()
-
+img1 = "/static/photos/one.jpg"
+img2 = "/static/photos/two.jpg"
+img3 = "/static/photos/three.jpg"
+img4 = "/static/photos/four.jpg"
+img5 = "/static/photos/five.jpg"
 
 
 @store_api.route('/store_home/<string:tenant>')
 def store_home(tenant):
     schema=tenant
-    return render_template('store/home.html',schema=tenant)
+    return render_template('store/home.html',schema=tenant,img1=img1,img2=img2,img3=img3,img4=img4,img5=img5)
 
 
 @store_api.route('/store_menu/<string:tenant>', methods=['GET', 'POST'])
@@ -31,7 +35,7 @@ def store_menu(tenant):
             result = all_products(session, schema)
             if request.method == 'POST':
                 search = request.form.get('search')
-                search_result, msg = search_products(session, search, schema)
+                search_result = search_products(session, search, schema)
                 msg="Product not found"
                 return render_template('store/menu.html', schema=tenant, result=result,msg=msg ,search_result=search_result)
                 
@@ -53,6 +57,7 @@ def add_product(tenant):
     try:
         if request.method == 'POST':
             if schema:
+                session.execute(text(f"set search_path to {tenant}"))
                 add_new_product = product_add()
                 session.add(add_new_product)
                 session.commit()
@@ -63,14 +68,11 @@ def add_product(tenant):
         return str(e)
     finally:
         session.close()
-    
     return render_template('store/product.html', tenant=tenant)
-
-
 
 @store_api.route('/order/<string:tenant>')
 @switch_tenant
 def order(tenant):
     g.tenant= tenant
-    name = current_username
+    name = current_user.name
     return render_template('store/order.html',tenant=tenant,name=name)

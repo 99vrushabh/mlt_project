@@ -1,4 +1,3 @@
-import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from common.service import change_tenant
@@ -7,7 +6,7 @@ from tenants.store.service import find_store
 from common.database import switch_tenant, db
 from flask_login import current_user, login_required
 from tenants.user.service import admin_user, details_user   
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for,g
 from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, update_store
 
 
@@ -56,20 +55,27 @@ def edit_store(tenant):
 
 
 @admin_api.route('/add_new', methods=['GET', 'POST'])
+@switch_tenant
 def add_new():
     if request.method == 'POST':
-        tenant = new_one = store_add()
+        new_one = store_add()
         user = Signup.query.filter_by(name=current_user.name).first()
         try:
-            change_tenant(new_one)
+            schema = g.tenant =new_one.sname
+            db.choose_tenant(schema)
             session.add(new_one)
-            create_table_store(session, tenant)
-            session.commit()
-            admin_user(user)
+            create_table_store(session,schema)
+            session.commit()   
+            if not user.is_admin:
+                user.is_admin = True
+                db.session.commit()
+
             return redirect(url_for('admin_page.admin_home'))
+        except Exception as e:
+            return str(e)
         finally:
             session.close()
-
+    
     return render_template('admin/add_new.html')
 
 

@@ -120,7 +120,7 @@
 
       <div class="modal-parent">
         <div class="modal">
-          <form action="{{ url_for('user_api.comment', tenant=tenant) }}" method="post">
+          <form action="{{ url_for('user_api.comment', tenant=schema) }}" method="post">
             <input
               type="text"
               name="comment_title"

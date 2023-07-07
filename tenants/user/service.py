@@ -1,12 +1,10 @@
+from datetime import date
 import uuid
 from flask import request
 from flask_login import current_user
 import jwt
 from common.database import db
 from common.models import Comments, Signup
-from passlib.hash import bcrypt
-
-
 
 
 #function for user details 
@@ -55,12 +53,12 @@ def admin_user(user):
 
 
 # function for add comment in a database
-def new_comment():
-    comment = Comments(
-                id=str(uuid.uuid4()),
-                comment_title=request.form.get("comment_title"),
-                comment_desc=request.form.get("comment_desc"),
-                comment_by=str(current_useremail)
-            )
-    db.session.add(comment)
-    db.session.commit()
+def comments(tenant):
+    Comments.__table__.schema = tenant
+    id = str(uuid.uuid4())
+    comment_title = request.form.get("comment_title")
+    comment_desc = request.form.get("comment_desc")
+    comment_by = str(current_user.email)
+    comment_at = date.today()
+    comment = Comments(id=id, comment_title=comment_title, comment_desc=comment_desc, comment_by=comment_by, comment_at=comment_at)
+    return comment
