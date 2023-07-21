@@ -7,7 +7,7 @@ from common.database import switch_tenant, db
 from flask_login import current_user, login_required
 from tenants.user.service import admin_user, details_user   
 from flask import Blueprint, redirect, render_template, request, url_for,g
-from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, update_store
+from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, suggestion, update_store
 
 
 admin_api = Blueprint('admin_page', __name__,
@@ -113,3 +113,15 @@ def back_store(tenant):
             db.session.commit()
             return redirect(url_for('admin_page.admin_home'))
     return render_template('admin/arch_store.html')
+
+
+@admin_api.route('/suggestion',methods=['GET','POST'])
+def new_suggetion():
+    if request.method == 'POST':
+        new_suggestion = suggestion(session)
+        if new_suggestion is not None :
+            return redirect(url_for('admin_page.admin_home'))
+
+        else:
+            session.close()
+            return redirect(url_for('admin_page.admin_home'))

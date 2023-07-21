@@ -351,6 +351,14 @@ button:hover {
   
 }
 
+
+h1 {
+  font-size: 3rem;
+  padding: 2rem 1rem;
+  text-transform: capitalize;
+  font-weight: bold;
+  color: #fff;
+}
 .center {
     text-align: center;
     border-radius: 5px;
@@ -359,14 +367,6 @@ button:hover {
       position: fixed;
       top: 85%;
       right: 2%;
-  }
-  
-  h1 {
-    font-size: 3rem;
-    padding: 2rem 1rem;
-    text-transform: capitalize;
-    font-weight: bold;
-    color: #fff;
   }
   .center button{
     width: 75px;

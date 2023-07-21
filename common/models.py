@@ -58,6 +58,15 @@ class Comments(db.Model):
     comment_by = Column(String(50),ForeignKey('myschema.Signup.id'))
     comment_at = Column(String(20),default=date.today(),nullable=False)
 
+class Suggestion(db.Model):
+    __tablename__ = 'Suggestion'
+    __table_args__ = {'schema': 'myschema'}
+    id = Column(String(50),primary_key=True)
+    suggestion_title = Column(String(250), nullable=False)
+    suggestion_desc = Column(String(250), nullable=False)
+    suggestion_by = Column(String(50),ForeignKey('myschema.Signup.id'))
+    suggestion_at = Column(String(20),default=date.today(),nullable=False)
+
 class Visit(db.Model):
     __tablename__ = 'Visit'
     id = Column(String(50),primary_key=True)

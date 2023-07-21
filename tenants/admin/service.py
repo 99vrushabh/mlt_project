@@ -4,7 +4,7 @@ from flask import request
 from flask_login import current_user
 from sqlalchemy import text
 from common.database import db
-from common.models import Comments, New_store, Product, Trace, Visit
+from common.models import Comments, New_store, Product, Suggestion, Trace, Visit
 from flask import redirect, request, url_for
 from flask_login import current_user
 from sqlalchemy import text
@@ -113,3 +113,15 @@ def visitors(session, tenant):
     session.commit()
 
     return existing_visit
+
+def suggestion(session):
+    id = str(uuid.uuid4())
+    suggestion_title = request.form.get("suggestion_title")
+    suggestion_desc = request.form.get("suggestion_desc")
+    suggestion_by = current_user.id
+    suggestion_at = date.today()
+    suggest = Suggestion(id=id, suggestion_title=suggestion_title, suggestion_desc=suggestion_desc, suggestion_by=suggestion_by, suggestion_at=suggestion_at)
+    session.add(suggest)
+    session.commit()
+    session.close()
+    return suggest

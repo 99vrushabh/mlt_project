@@ -22,9 +22,7 @@ img2 = "/static/photos/two.jpg"
 img3 = "/static/photos/three.jpg"
 img4 = "/static/photos/four.jpg"
 img5 = "/static/photos/five.jpg"
-
-visitor_count = 0   
-
+   
 
 @store_api.route('/store_home/<string:tenant>')
 @login_required 
@@ -48,7 +46,7 @@ def store_menu(tenant):
 
     except SQLAlchemyError:
         return NoStoremsg
-    return render_template('store/menu.html', schema=tenant, result=result ,search_result=search_result)
+    return render_template('store/menu.html', schema=tenant, result=result)
 
 @store_api.route('/store_rewards/<string:tenant>')
 def store_rewards(tenant):
