@@ -1,13 +1,13 @@
 import uuid
 from flask import request
 from sqlalchemy import text
-from common.models import Product, new_store
+from common.models import Product, New_store
 # function for add product in perticullar schema
 
 def find_store(search):
     msg="fetch error"
     if search:
-        search_stores = new_store.query.filter(new_store.sname.like(f'%{search}%')).all()
+        search_stores = New_store.query.filter(New_store.sname.like(f'%{search}%')).all()
         if not search_stores:
             msg = "Store not found"
         return search_stores,msg

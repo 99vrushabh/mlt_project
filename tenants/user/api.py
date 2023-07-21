@@ -36,14 +36,11 @@ def profile():
 @user_api.route("/comment/<string:tenant>", methods=['GET', 'POST'])
 @login_required
 @switch_tenant
-def comment(tenant):
+def comment(tenant):    
     if tenant:
         if request.method == 'POST':
-            new_comment= comments(tenant)
+            new_comment= comments(session,tenant)
             if new_comment is not None:
-                session.add(new_comment)
-                session.commit()
-                session.close()
                 return redirect(url_for('store_page.store_home', tenant=tenant))
             else:
                 session.close()

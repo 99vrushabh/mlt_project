@@ -1,139 +1,140 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
-  <title>Document</title>
-</head>
-{% extends "loader.html" %}
-{% block body %}
-<body>
-  <section>
-    <div class="main-form-container">
-      <div id="form_section" class="form-container">
-        <div class="login-form form-wraper">
-          <div>
-            <div class="form-title">
-              <h2>Login</h2>
-            </div>
-            <form action="/login" method="post">
-              <div class="input-group">
-                <div class="box">
-                  <span>
-                    <input
-                      placeholder="Email"
-                      class="myInput"
-                      type="text"
-                      name="email"
-                      id="email"
-                      autocomplete="off"
-                    />
-                  </span>
-                </div>
-              </div>
-              <div class="input-group">
-                <div class="box">
-                  <span>
-                    <input
-                      placeholder="Password"
-                      class="myInput"
-                      type="password"
-                      name="password"
-                      id="password"
-                      autocomplete="off"
-                    />
-                  </span>
-                </div>
-              </div>
-              <button class="done_button" type="button" onclick="togglePasswordVisibility('password', 'toggleBtn')">Show</button>
-              {{msg}}
-              <div class="action-button">
-                <button value="submit" id="submit">Login</button>
-              </div>
-            </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login page</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}" />
+    <script
+      src="https://kit.fontawesome.com/7b39153ed3.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  {% extends "loader.html" %} {% block body %}
+  <body>
+    <div class="container" id="container">
+      <!-- sign Up form section start-->
+      <div class="form sign_up">
+        <form action="/signup" method="post">
+          <h1>Create An Account</h1>
+          <div class="social-container">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-google"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
           </div>
-        </div>
-        <div class="signUp-form form-wraper">
-          <div>
-            <div class="form-title">
-              <h2>Sign Up</h2>
-            </div>
-            <form action="/signup" method="post">
-              <div class="input-group">
-                <div class="box">
-                  <span>
-                    <input
-                      placeholder="Full Name"
-                      class="myInput"
-                      type="text"
-                      name="name"
-                      id="name"
-                      autocomplete="off"
-                    />
-                  </span>
-                </div>
-              </div>
-              <div class="input-group">
-                <div class="box">
-                  <span>
-                    <input
-                      placeholder="Email"
-                      class="myInput"
-                      type="text"
-                      name="email"
-                      autocomplete="off"
-                    />
-                  </span>
-                </div>
-              </div>
-              <div class="input-group">
-                <div class="box">
-                  <span>
-                    <input
-                      placeholder="Mobile No."
-                      class="myInput"
-                      type="number"
-                      name="phone"
-                      id="phone"
-                      autocomplete="off"
-                    />
-                  </span>
-                </div>
-              </div>
-              <div style="margin-bottom: 0px" class="input-group">
-                <div class="box">
-                  <span>
-                    <input
-                      placeholder="Password"
-                      class="myInput"
-                      type="password"
-                      name="password"
-                      id="signupPassword"
-                      autocomplete="off"
-                    />
-                  </span>
-                </div>
-              </div>
-              <button class="done_button2" type="button" onclick="togglePasswordVisibility('signupPassword', 'signupToggleBtn')">Show</button>
-              <div class="action-button">
-                <button value="submit" id="submit">Sign Up</button>
-              </div>
-            </form>
+          <span>use email for registration</span>
+          <input
+            placeholder="Full Name"
+            class="myInput"
+            type="text"
+            name="name"
+            id="name"
+            autocomplete="off"
+            required
+          />
+          <input
+            placeholder="Email"
+            class="myInput"
+            type="text"
+            name="email"
+            id="email"
+            autocomplete="off"
+            required
+          />
+          <input
+            placeholder="Password"
+            class="myInput"
+            type="password"
+            name="password"
+            id="password"
+            autocomplete="off"
+            required
+          />
+          <input
+            placeholder="Mobile No."
+            class="myInput"
+            type="number"
+            name="phone"
+            id="phone"
+            autocomplete="off"
+            required
+          />
+          <button value="submit" id="submit">Create Account</button>
+        </form>
+      </div>
+      <!-- sign Up form section end-->
+
+      <!-- sign in form section start-->
+      <div class="form sign_in">
+        <form action="/login" method="post">
+          <h1>Login In</h1>
+          <div class="social-container">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-google"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+          </div>
+          <span>Login In with your Account</span>
+          <input
+            placeholder="Email"
+            class="myInput"
+            type="text"
+            name="email"
+            id="email"
+            autocomplete="off"
+            required
+          />
+          <input
+            placeholder="Password"
+            class="myInput"
+            type="password"
+            name="password"
+            id="password"
+            autocomplete="off"
+            required
+          />
+          <span
+            >Forgot your
+            <span class="forgot">password?</span>
+          </span>
+
+          {{msg}}
+          <button value="submit" id="submit">Login</button>
+        </form>
+      </div>
+      <!-- sign in form section end-->
+
+      <!-- overlay section start-->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-pannel overlay-left">
+            <h1>Already have an account</h1>
+            <p>Please Login</p>
+            <button id="signIn" class="overBtn">Login</button>
+          </div>
+          <div class="overlay-pannel overlay-right">
+            <h1>Create Account</h1>
+            <p>Start Your Journey with Us</p>
+            <button id="signUp" class="overBtn">Sign Up</button>
           </div>
         </div>
       </div>
-      <div id="multiple-btn" class="bg-btn-container">
-        <div class="action-button">
-          <button onclick="showLoginForm()">Login</button>
-        </div>
-        <div class="action-button">
-          <button onclick="showSignupForm()">Sign Up</button>
-        </div>
-      </div>
+      <!-- overlay section start-->
     </div>
-  </section>
-  <script src="{{url_for('static',filename='index.js')}}"></script>
-</body>
-{% endblock %}
+    <script>
+      const signUpBUtton = document.getElementById("signUp");
+      const signInBUtton = document.getElementById("signIn");
+      const container = document.getElementById("container");
+
+      // switch between login and signup
+
+      signUpBUtton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+
+      signInBUtton.addEventListener("click", () => [
+        container.classList.remove("right-panel-active"),
+      ]);
+    </script>
+  </body>
+  {% endblock %}
 </html>

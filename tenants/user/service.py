@@ -53,12 +53,17 @@ def admin_user(user):
 
 
 # function for add comment in a database
-def comments(tenant):
+def comments(session,tenant):
     Comments.__table__.schema = tenant
     id = str(uuid.uuid4())
     comment_title = request.form.get("comment_title")
     comment_desc = request.form.get("comment_desc")
-    comment_by = str(current_user.email)
+    comment_by = current_user.email
     comment_at = date.today()
     comment = Comments(id=id, comment_title=comment_title, comment_desc=comment_desc, comment_by=comment_by, comment_at=comment_at)
+    session.add(comment)
+    session.commit()
+    session.close()
     return comment
+
+ 

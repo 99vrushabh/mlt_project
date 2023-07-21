@@ -40,7 +40,6 @@ buttons.forEach((button) => {
   });
 });
 
-
 // hide/show password 
 loginForm.style.display = "block";
 signupForm.style.display = "none";

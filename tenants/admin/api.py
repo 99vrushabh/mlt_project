@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from common.service import change_tenant
-from common.models import Signup, new_store
+from common.models import Signup, New_store
 from tenants.store.service import find_store
 from common.database import switch_tenant, db
 from flask_login import current_user, login_required
@@ -24,10 +24,10 @@ session = Session()
 def admin_home():
     user = details_user()
     if current_user.is_admin == True:
-        add = session.query(new_store).filter(
-            new_store.create_by == current_user.email, new_store.is_arch == False).all()
+        add = session.query(New_store).filter(
+            New_store.create_by == current_user.email, New_store.is_arch == False).all()
     else:
-        search = add = new_store.query.all()
+        search = add = New_store.query.all()
         if request.method == 'POST':
             search = request.form.get("search").lower().replace(" ", "_")
             if search:
@@ -43,7 +43,7 @@ def admin_home():
 def edit_store(tenant):
     if current_user.is_admin == True:
         schema = tenant
-        store = new_store.query.filter_by(sname=tenant).first()
+        store = New_store.query.filter_by(sname=tenant).first()
         if request.method == 'POST':
             update_store(store, db)
             new_update(store.sname, current_user.email)
@@ -55,6 +55,7 @@ def edit_store(tenant):
 
 
 @admin_api.route('/add_new', methods=['GET', 'POST'])
+@login_required
 @switch_tenant
 def add_new():
     if request.method == 'POST':
@@ -65,10 +66,9 @@ def add_new():
             db.choose_tenant(schema)
             session.add(new_one)
             create_table_store(session,schema)
-            session.commit()   
             if not user.is_admin:
                 user.is_admin = True
-                db.session.commit()
+                session.commit()
 
             return redirect(url_for('admin_page.admin_home'))
         except Exception as e:
@@ -85,7 +85,7 @@ def add_new():
 def arch_store(tenant):
     if current_user.is_admin == True:
         if request.method == 'GET':
-            schema_name = new_store
+            schema_name = New_store
             change_tenant(schema_name)
             add_arch_store(tenant)
             return redirect(url_for('admin_page.archive_store'))
@@ -95,7 +95,7 @@ def arch_store(tenant):
 
 @admin_api.route('/archive_store', methods=['GET', 'POST'])
 def archive_store():
-    add = new_store.query.filter_by(
+    add = New_store.query.filter_by(
         is_arch=True, create_by=current_user.email).all()
     return render_template('admin/arch_store.html', add=add)
 
@@ -105,10 +105,10 @@ def archive_store():
 @switch_tenant
 def back_store(tenant):
     if request.method == 'GET':
-        schema_name = new_store
+        schema_name = New_store
         change_tenant(schema_name)
         if current_user.is_admin == True:
-            store = new_store.query.filter_by(sname=tenant).first()
+            store = New_store.query.filter_by(sname=tenant).first()
             store.is_arch = False
             db.session.commit()
             return redirect(url_for('admin_page.admin_home'))
