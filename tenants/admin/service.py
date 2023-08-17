@@ -9,9 +9,9 @@ from flask import redirect, request, url_for
 from flask_login import current_user
 from sqlalchemy import text
 
+
+
 # function for add new store
-
-
 def store_add():
     new_add = New_store(id=str(uuid.uuid4()),
                         sname=request.form.get(
@@ -22,7 +22,7 @@ def store_add():
                         create_by=str(current_user.email))
     return new_add
 
-
+# function for that store which create their own schema 
 def create_table_store(session, schema):
     product_table = Product.__table__
     comment_table = Comments.__table__
@@ -51,9 +51,7 @@ def create_table_store(session, schema):
     session.commit()
 
 
-# function for product add
-
-
+# function for product add in that store
 def product_add(session, tenant):
     add_product = Product(
         id=str(uuid.uuid4()),
@@ -66,9 +64,8 @@ def product_add(session, tenant):
     session.commit()
     return redirect(url_for('store_page.store_home', tenant=tenant))
 
+
 # for add store to archive
-
-
 def add_arch_store(tenant):
     if current_user.is_admin == True:
         store = New_store.query.filter_by(sname=tenant).first()
@@ -87,6 +84,7 @@ def update_store(store, db):
     db.session.commit()
 
 
+# for uodate on their store details
 def new_update(store_name, user_email):
     new_update_details = Trace(
         id=str(uuid.uuid4()),
@@ -97,6 +95,7 @@ def new_update(store_name, user_email):
     db.session.commit()
 
 
+# 
 def visitors(session, tenant):
     Visit.__table__.schema = tenant
     id = str(uuid.uuid4())
@@ -114,6 +113,8 @@ def visitors(session, tenant):
 
     return existing_visit
 
+
+# take a suggestion from user
 def suggestion(session):
     id = str(uuid.uuid4())
     suggestion_title = request.form.get("suggestion_title")

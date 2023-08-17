@@ -11,10 +11,6 @@ from tenants.user.api import user_api
 def create_app():
     app=Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:1111/postgres'
-    app.config['SQLALCHEMY_BINDS']={
-        'test1':'postgresql://postgres:postgres@localhost:2222/test1',
-        'test2' :'postgresql://postgres:postgres@localhost:1234/test2'
-    }
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = 'vrushabh@_2611'
    

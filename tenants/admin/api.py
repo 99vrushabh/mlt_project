@@ -1,11 +1,11 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine    
 from sqlalchemy.orm import sessionmaker
 from common.service import change_tenant
 from common.models import Signup, New_store
 from tenants.store.service import find_store
 from common.database import switch_tenant, db
 from flask_login import current_user, login_required
-from tenants.user.service import admin_user, details_user   
+from tenants.user.service import  details_user  
 from flask import Blueprint, redirect, render_template, request, url_for,g
 from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, suggestion, update_store
 
@@ -23,19 +23,20 @@ session = Session()
 @login_required
 def admin_home():
     user = details_user()
-    if current_user.is_admin == True:
-        add = session.query(New_store).filter(
+    if current_user.is_admin:
+        add=session.query(New_store).filter(
             New_store.create_by == current_user.email, New_store.is_arch == False).all()
     else:
+        
         search = add = New_store.query.all()
         if request.method == 'POST':
             search = request.form.get("search").lower().replace(" ", "_")
             if search:
                 search_stores, msg = find_store(search)
-                return render_template('admin/main_home.html', user=user, add=add, search_stores=search_stores, msg=msg)
+                return render_template('admin/main_home.html', user=user,  add=add, search_stores=search_stores, msg=msg)
             else:
-                return render_template('admin/main_home.html', user=user, add=add)
-    return render_template('admin/main_home.html', use=user, add=add)
+                return render_template('admin/main_home.html', user=user,  add=add)
+    return render_template('admin/main_home.html', user=user,  add=add)
 
 
 @admin_api.route('/edit_store/<string:tenant>', methods=['GET', 'POST'])

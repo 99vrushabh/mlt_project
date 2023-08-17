@@ -3,9 +3,12 @@ import uuid
 from flask import request
 from flask_login import current_user
 import jwt
+from sqlalchemy import desc
 from common.database import db
-from common.models import Comments, Signup
+from common.models import Comments, New_store, Signup
 
+
+# To display recently added stores for user
 
 #function for user details 
 def details_user():
@@ -66,4 +69,4 @@ def comments(session,tenant):
     session.close()
     return comment
 
- 
+# function for display new added stores
