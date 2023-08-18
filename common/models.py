@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from flask_login import UserMixin
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from common.database import db
@@ -26,8 +26,8 @@ class New_store(db.Model):
     sphone = Column(String(50),nullable=False)
     spassword = Column(String(250), unique=True, nullable=False)
     create_by = Column(String(50),ForeignKey(Signup.email))
-    create_at = Column(String(20),default=date.today(),nullable=False)
-    update_at = Column(String(20),default=date.today(),nullable=False)
+    create_at = Column(String(90),default=datetime.now(),nullable=False)
+    update_at = Column(String(90),default=datetime.now(),nullable=False)
     visitors = Column(Integer,default=0)
     is_active = Column(Boolean,default=True)
     is_arch = Column(Boolean,default=False) 

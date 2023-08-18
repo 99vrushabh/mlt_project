@@ -97,19 +97,34 @@ def new_update(store_name, user_email):
 
 # 
 def visitors(session, tenant):
-    Visit.__table__.schema = tenant
-    id = str(uuid.uuid4())
     visitor_id = current_user.id
-    visit_at = tenant
     visit_date = date.today().strftime('%Y-%m-%d')
-    existing_visit = Visit.query.filter(Visit.visitor_id == visitor_id, Visit.visit_date == visit_date,visit_at == tenant).first()
+
+    existing_visit = Visit.query.filter(
+        Visit.visitor_id == visitor_id,
+        Visit.visit_date == visit_date,
+        Visit.visit_at == tenant
+    ).first()
 
     if existing_visit:
         return 'Data already exists'
 
-    new_visit = Visit(id=id,visitor_id=visitor_id, visit_at=visit_at, visit_date=visit_date)
+    id = str(uuid.uuid4())
+    visit_at = tenant
+
+    # Create a new visit record
+    new_visit = Visit(id=id, visitor_id=visitor_id, visit_at=visit_at, visit_date=visit_date)
     session.add(new_visit)
     session.commit()
+
+    # Increment the visitors count for the specific store
+    store = session.query(New_store).filter(
+        New_store.sname == tenant
+    ).first()
+
+    if store:
+        store.visitors += 1
+        session.commit()
 
     return existing_visit
 

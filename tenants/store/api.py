@@ -16,20 +16,14 @@ store_api = Blueprint('store_page', __name__,
                   template_folder='templates', static_folder='static')
 engine = create_engine('postgresql://postgres:postgres@localhost:1111/postgres')
 Session = sessionmaker(bind=engine)
-session = Session()
-img1 = "/static/photos/one.jpg"
-img2 = "/static/photos/two.jpg"
-img3 = "/static/photos/three.jpg"
-img4 = "/static/photos/four.jpg"
-img5 = "/static/photos/five.jpg"
-   
+session = Session()   
 
 @store_api.route('/store_home/<string:tenant>')
 @login_required 
 def store_home(tenant):
     schema = tenant
     visit_users = visitors(session,tenant)
-    return render_template('store/home.html', schema=tenant, img1=img1, img2=img2, img3=img3, img4=img4, img5=img5)
+    return render_template('store/home.html', schema=tenant)
 
 
 @store_api.route('/store_menu/<string:tenant>', methods=['GET', 'POST'])

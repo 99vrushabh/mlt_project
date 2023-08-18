@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine    
+from sqlalchemy import create_engine, desc    
 from sqlalchemy.orm import sessionmaker
 from common.service import change_tenant
 from common.models import Signup, New_store
@@ -23,20 +23,20 @@ session = Session()
 @login_required
 def admin_home():
     user = details_user()
+    rcnt_store = session.query(New_store).filter( New_store.is_arch == False , current_user.is_admin == False).order_by(desc(New_store.create_at)).limit(2).all()
     if current_user.is_admin:
         add=session.query(New_store).filter(
             New_store.create_by == current_user.email, New_store.is_arch == False).all()
     else:
-        
         search = add = New_store.query.all()
         if request.method == 'POST':
             search = request.form.get("search").lower().replace(" ", "_")
             if search:
                 search_stores, msg = find_store(search)
-                return render_template('admin/main_home.html', user=user,  add=add, search_stores=search_stores, msg=msg)
+                return render_template('admin/main_home.html', user=user, rcnt_store=rcnt_store, add=add, search_stores=search_stores, msg=msg)
             else:
-                return render_template('admin/main_home.html', user=user,  add=add)
-    return render_template('admin/main_home.html', user=user,  add=add)
+                return render_template('admin/main_home.html', user=user, rcnt_store=rcnt_store,  add=add)
+    return render_template('admin/main_home.html', user=user, rcnt_store=rcnt_store,  add=add)
 
 
 @admin_api.route('/edit_store/<string:tenant>', methods=['GET', 'POST'])

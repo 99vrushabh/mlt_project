@@ -65,8 +65,7 @@
 </head>
 {% extends "loader.html " %} {% block body%}
 
-<body
-  style="background: url(https://img.freepik.com/premium-photo/bokeh-background-street-bar-beer-restaurant-outdoor-asia-people-sit-chill-out-hang-out-dinner-listen-music-together-avenue-happy-life-work-hard-play-hard-generative-ai_438099-16522.jpg?w=996);background-position: center;background-size: cover;background-repeat: no-repeat;">
+<body style="background-color: black;">
 
   <div class="details_sections">
     <div class="main_details">
@@ -160,7 +159,35 @@
       {% endif %}
     </div>
 
-    
+    <div class="title" style="border-bottom: 2px solid #f1faee;">
+      <h1>Recent Stores</h1>
+    </div>
+    <div class="main_details">
+      {% if rcnt_store %}
+      {% for i in rcnt_store %}
+      {% if i.is_arch == false %}
+      <main class="page-content">
+        <div class="d_card">
+          <div class="content">
+            <h2 class="heading">{{i.sname}}</h2>
+            <p class="data-content">
+            <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"
+                style="text-decoration: none;color: #f1faee;">Shop</a></h3>
+
+            {% endif %}
+            </p>
+
+          </div>
+        </div>
+
+      </main>
+      {% endfor %}
+      {% else %}
+      <h5>No store Found...</h5>
+      {% endif %}
+    </div>
+
+
     <div class="header_reviews">
       <div class="center">
         <button type="button" class="pop-btn">
