@@ -1,11 +1,11 @@
-from sqlalchemy import create_engine, desc    
+from sqlalchemy import create_engine    
 from sqlalchemy.orm import sessionmaker
 from common.service import change_tenant
 from common.models import Signup, New_store
 from tenants.store.service import find_store
 from common.database import switch_tenant, db
 from flask_login import current_user, login_required
-from tenants.user.service import  details_user  
+from tenants.user.service import  details_user, trend_stores  
 from flask import Blueprint, redirect, render_template, request, url_for,g
 from tenants.admin.service import add_arch_store, create_table_store, new_update, store_add, suggestion, update_store
 
@@ -23,24 +23,25 @@ session = Session()
 @login_required
 def admin_home():
     user = details_user()
-    rcnt_store = session.query(New_store).filter( New_store.is_arch == False , current_user.is_admin == False).order_by(desc(New_store.create_at)).limit(2).all()
+    '''   rcnt_store = recent_stores(session)'''
+    trnd_store = trend_stores(session)
     if current_user.is_admin:
-        add=session.query(New_store).filter(
-            New_store.create_by == current_user.email, New_store.is_arch == False).all()
+        add = session.query(New_store).filter(
+            New_store.create_by == current_user.email, New_store.is_arch == False).limit(6)
+
     else:
         search = add = New_store.query.all()
         if request.method == 'POST':
             search = request.form.get("search").lower().replace(" ", "_")
             if search:
                 search_stores, msg = find_store(search)
-                return render_template('admin/main_home.html', user=user, rcnt_store=rcnt_store, add=add, search_stores=search_stores, msg=msg)
+                return render_template('admin/main_home.html', user=user, add=add, search_stores=search_stores,trnd_store=trnd_store, msg=msg)
             else:
-                return render_template('admin/main_home.html', user=user, rcnt_store=rcnt_store,  add=add)
-    return render_template('admin/main_home.html', user=user, rcnt_store=rcnt_store,  add=add)
+                return render_template('admin/main_home.html', user=user,trnd_store=trnd_store,  add=add)
+    return render_template('admin/main_home.html', user=user,trnd_store=trnd_store,add=add)
 
 
 @admin_api.route('/edit_store/<string:tenant>', methods=['GET', 'POST'])
-@login_required
 def edit_store(tenant):
     if current_user.is_admin == True:
         schema = tenant
@@ -77,7 +78,7 @@ def add_new():
         finally:
             session.close()
     
-    return render_template('admin/add_new.html')
+    return render_template('admin/add_new.html',name=current_user.name)
 
 
 @admin_api.route('/archive/<string:tenant>', methods=['POST', 'GET'])

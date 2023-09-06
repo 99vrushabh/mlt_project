@@ -3,12 +3,11 @@ import uuid
 from flask import request
 from flask_login import current_user
 import jwt
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from common.database import db
 from common.models import Comments, New_store, Signup
 
 
-# To display recently added stores for user
 
 #function for user details 
 def details_user():
@@ -70,3 +69,21 @@ def comments(session,tenant):
     return comment
 
 # function for display new added stores
+
+# function for display trending stores
+def trend_stores(session):
+    subquery = (
+        session.query(New_store.id, func.max(New_store.visitors).label("max_visitors"))
+        .filter(New_store.is_arch == False, current_user.is_admin == False)
+        .group_by(New_store.id)
+        .subquery()
+    )
+    
+    new = (
+        session.query(New_store)
+        .join(subquery, New_store.id == subquery.c.id)
+        .order_by(desc(subquery.c.max_visitors))
+        .limit(6)
+        
+    )
+    return new

@@ -8,247 +8,172 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
-  <link rel="stylesheet" href="{{url_for('static',filename='card.css')}}" />
-
+  <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
-    .center button:hover {
-      border: 1px solid #006439;
-      background-color: white;
-      color: #006439;
+    a {
+      text-decoration: none;
+      color: black;
     }
 
-    .center {
-      text-align: center;
-      border-radius: 5px;
-      z-index: 5;
-      padding: 1rem;
-      position: fixed;
-      top: 85%;
-      right: 2%;
+    a:hover {
+      color: gray;
+      text-decoration: none;
     }
 
-    .center button {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      line-height: 75px;
-    }
-
-    .modal-parent {
-      position: fixed;
-      inset: 0;
-      height: 100vh;
-      width: 100%;
-      background: #00000054;
-      display: none;
-      z-index: 1;
-    }
-
-    .modal {
-      background: white;
-      box-shadow: #00000059 0 5px 15px;
-      width: 70%;
-      padding: 30px;
-      border-radius: 6px;
-      position: absolute;
-      inset: 50%;
-      transform: translate(-50%, -50%);
-      font-size: large;
-      line-height: 2rem;
-      letter-spacing: 0.5px;
-      word-spacing: 5px;
-      animation: 1s drop;
-      position: relative;
+    li {
+      list-style: none;
     }
   </style>
 </head>
-{% extends "loader.html " %} {% block body%}
 
-<body style="background-color: black;">
-
-  <div class="details_sections">
-    <div class="main_details">
-      {% if search_stores %}
-      {% for i in search_stores %}
-      <div class="details">
-        <h3>Store : {{i.sname}}</h3>
-        <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}">Home</a></h3>
-      </div>
-      {% endfor %}
-      {% else %}
-      {{msg}}
-      {% endif %}
-
-
-    </div>
-  </div>
-
-  <div class="main" style="width: 100%;">
-    <div class="wrapper">
-      <div class="menu">
-        <div class="flyout"><a href="/home"><i class="fa-solid fa-house"></i></a></div>
-        <div class="flyout"><a href="/add_new"><i class="fa-solid fa-plus"></i></a></div>
-        <div class="flyout"><a href="/profile"><i class="fa-solid fa-user"></i></a></div>
-        {% if current_user.is_admin == True %}
-        <div class="flyout"><a href="/archive_store"><i class="fa-solid fa-archive"></i></a></div>
-        {% endif %}
-        <div class="flyout"><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></div>
-        <div class="flyout"><a href="#"><i class="fa-solid fa-gear"></i></a></div>
-        <i class="fa-solid fa-arrow-up hidden"></i>
-        <i class="fa-solid fa-bars"></i>
+<body class="container">
+  <header class="container header sec_header">
+    <div>
+      <div class="row">
+        <div>
+          <h2>C Coffee</h2>
+        </div>
+        <div class="col-sm-8 offset-2 ml-auto">
+          <nav>
+            <ul class="navbar">
+              <a href="/home">
+                <li>Home</li>
+              </a>
+              <a href="/add_new">
+                <li>New Store</li>
+              </a>
+              <a href="/profile">
+                <li>Profile</li>
+              </a>
+              <a href="/archive_store">
+                <li>Archive</li>
+              </a>
+              <a href="/logout">
+                <li>Logout</li>
+              </a>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
-    <div class="searchbar">
-      <div id="wrap">
-        <form action="/home" method="post">
-          <input id="search" name="search" type="text" placeholder="What're we looking for ?"
-            autocomplete="False" /><button id="searcht" value="submit" type="submit" style="
-                height: 41px;
-                width: 50px;
-                border: none;
-                background-color: transparent;
-                margin-left: -50px;
-              ">
-            <i class="fa-solid fa-magnifying-glass" style="color: white;"></i>
-          </button>
+  </header>
 
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="details_sections">
-    <div class="title" style="border-bottom: 2px solid #f1faee;">
-      <h1>Available Stores</h1>
-    </div>
-    <div class="main_details">
+  <h3>Available Stores</h3>
+  <div class="available_sec row">
+    <div class="row all_store">
       {% if add %}
       {% for i in add %}
-      {% if i.is_arch == false %}
-      <main class="page-content">
-        <div class="d_card">
-          <div class="content">
-
-            <h2 class="heading">{{i.sname}}</h2>
-            <p class="data-content">
-              {% if current_user.is_admin == True %}
-            <h3><a href="{{ url_for('store_page.add_product', tenant=i.sname) }}"
-                style="text-decoration: none;color: #f1faee;">menu</a></h3>
-            <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"
-                style="text-decoration: none;color: #f1faee;">Shop</a></h3>
-            <h3><a href="{{ url_for('admin_page.edit_store', tenant=i.sname) }}"
-                style="text-decoration: none;color: #f1faee;">details</a></h3>
-            <h3> <a href="{{ url_for('admin_page.arch_store', tenant=i.sname) }}"
-                style="text-decoration: none;color: #ff0000;">Archive</a></h3>
-
-            {% else %}
-            <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"
-                style="text-decoration: none;color: #f1faee;">Shop</a></h3>
-
-            {% endif %}
-            </p>
-
+      <div class="store col mt-4">
+        <img
+          src="https://img.freepik.com/free-vector/coffee-love-foam-with-beans-cartoon-icon-illustration_138676-2575.jpg?w=2000"
+          alt="" srcset="" id="myBtn{{ i }}" class="modal-btn w-100" />
+          <h5 class="text-center">{{i.sname}}</h5>
+        <div id="myModal{{ i }}" class="modal">
+          <div class="modal-content container">
+            <span class="close" data-modal="myModal{{ i }}">&times;</span>
+            <p>{{i.sname}}</p>
           </div>
         </div>
-
-      </main>
-      {% endif %}
+      </div>
       {% endfor %}
       {% else %}
-      <h5>No store Found...</h5>
+      <h4>No Store available...</h4>
       {% endif %}
     </div>
+  </div>
+  </div>
+  </div>
 
-    <div class="title" style="border-bottom: 2px solid #f1faee;">
-      <h1>Recent Stores</h1>
-    </div>
-    <div class="main_details">
+ <!-- <h3>Recently Added</h3>
+  <div class="available_sec row">
+    <div class="row all_store">
       {% if rcnt_store %}
       {% for i in rcnt_store %}
-      {% if i.is_arch == false %}
-      <main class="page-content">
-        <div class="d_card">
-          <div class="content">
-            <h2 class="heading">{{i.sname}}</h2>
-            <p class="data-content">
-            <h3><a href="{{ url_for('store_page.store_home', tenant=i.sname) }}"
-                style="text-decoration: none;color: #f1faee;">Shop</a></h3>
-
-            {% endif %}
-            </p>
-
+      <div class="store col mt-4">
+        <img
+          src="https://img.freepik.com/free-vector/coffee-love-foam-with-beans-cartoon-icon-illustration_138676-2575.jpg?w=2000"
+          alt="" srcset="" id="myBtn{{ i }}" class="modal-btn w-100" />
+        <div id="myModal{{ i }}" class="modal">
+          <div class="modal-content container">
+            <span class="close" data-modal="myModal{{ i }}">&times;</span>
+            <p>Some text in the Modal..</p>
           </div>
         </div>
-
-      </main>
+      </div>
       {% endfor %}
-      {% else %}
-      <h5>No store Found...</h5>
       {% endif %}
     </div>
-
-
-    <div class="header_reviews">
-      <div class="center">
-        <button type="button" class="pop-btn">
-          <i class="fa-regular fa-comments"></i>
-        </button>
-      </div>
-
-      <div class="modal-parent">
-        <div class="modal">
-          <form action="/suggestion" method="post">
-            <input type="text" name="suggestion_title" id="suggestion_title" placeholder="Add Title..." />
-            <textarea name="suggestion_desc" id="suggestion_desc" cols="30" rows="10" placeholder="Comments..." style="
-                padding: 15px;
-                margin-top: 20px;
-                min-width: 95%;
-                max-width: 95%;
-                min-height: 250px;
-                max-height: 250px;
-                text-align: justify;
-              "></textarea>
-            <button value="submit" id="submit" style="margin-top: 25px">
-              Submit
-            </button>
-          </form>
-          <span class="x" draggable="true">&times;</span>
+  </div>
+-->
+  <h3>Trending Stores</h3>
+  <div class="available_sec row">
+    <div class="row all_store">
+      {% if trnd_store %}
+      {% for i in trnd_store %}
+      <div class="store col mt-4">
+        <img
+          src="https://img.freepik.com/free-vector/coffee-love-foam-with-beans-cartoon-icon-illustration_138676-2575.jpg?w=2000"
+          alt="" srcset="" id="myBtn{{ i }}" class="modal-btn w-100" />
+        <div id="myModal{{ i }}" class="modal">
+          <div class="modal-content container">
+            <span class="close" data-modal="myModal{{ i }}">&times;</span>
+            <p>Some text in the Modal..</p>
+          </div>
         </div>
       </div>
+      {% endfor %}
+      {% endif %}
     </div>
-    <script src="{{url_for('static',filename='index.js')}}">
-      window.addEventListener("load", function () {
-        var loader = document.querySelector(".loader");
-        loader.style.display = "none";
+  </div>
+
+
+  <script>
+    $(".hamburger_menu").click(function () {
+      $(this).toggleClass("active");
+      $(".navbar").toggleClass("active");
+    });
+
+    // for the model
+
+    // Get all modal buttons with class "modal-btn"
+    const modalBtns = document.querySelectorAll(".modal-btn");
+
+    modalBtns.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        const modalId = event.target.id;
+        const modal = document.getElementById(modalId.replace("myBtn", "myModal"));
+
+        // Open the modal
+        modal.style.display = "block";
+
+        // Close the modal when clicking anywhere outside of it
+        window.addEventListener("click", (event) => {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        });
       });
-      var parent = document.querySelector(".modal-parent"),
-        btn = document.querySelector(".pop-btn"),
-        X = document.querySelector(".x"),
-        section = document.querySelector("section");
+    });
 
-      btn.addEventListener("click", appear);
+    // Close the modal when clicking the close button
+    const closeBtns = document.querySelectorAll(".close");
 
-      function appear() {
-        parent.style.display = "block";
-        section.style.filter = "blur(10px)";
-      }
-      X.addEventListener("click", disappearX);
+    closeBtns.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        const modalId = event.target.getAttribute("data-modal");
+        const modal = document.getElementById(modalId);
 
-      function disappearX() {
-        parent.style.display = "none";
-        section.style.filter = "blur(0px)";
-      }
-      parent.addEventListener("click", disappearParent);
+        // Close the modal
+        modal.style.display = "none";
+      });
+    });
 
-      function disappearParent(e) {
-        if (e.target.className == "modal-parent") {
-          parent.style.display = "none";
-          section.style.filter = "blur(0px)";
-        }
-      }
-
-    </script>
+  </script>
 </body>
-{% endblock %}
 
 </html>

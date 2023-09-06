@@ -37,7 +37,7 @@ class Trace(db.Model):
     __table_args__ = {'schema': 'myschema'}
     id = Column(String(50), primary_key=True)
     update_on = Column(String(50), ForeignKey(New_store.sname))
-    update_at = Column(String(20), default=date.today(), nullable=False)
+    update_at = Column(String(20), default=datetime.now(), nullable=False)
     update_by = Column(String(50), ForeignKey(Signup.email))
 
 
@@ -56,7 +56,7 @@ class Comments(db.Model):
     comment_title = Column(String(250), nullable=False)
     comment_desc = Column(String(250), nullable=False)
     comment_by = Column(String(50),ForeignKey('myschema.Signup.id'))
-    comment_at = Column(String(20),default=date.today(),nullable=False)
+    comment_at = Column(String(20),default=datetime.now(),nullable=False)
 
 class Suggestion(db.Model):
     __tablename__ = 'Suggestion'
@@ -65,11 +65,11 @@ class Suggestion(db.Model):
     suggestion_title = Column(String(250), nullable=False)
     suggestion_desc = Column(String(250), nullable=False)
     suggestion_by = Column(String(50),ForeignKey('myschema.Signup.id'))
-    suggestion_at = Column(String(20),default=date.today(),nullable=False)
+    suggestion_at = Column(String(20),default=datetime.now(),nullable=False)
 
 class Visit(db.Model):
     __tablename__ = 'Visit'
     id = Column(String(50),primary_key=True)
     visitor_id = Column(String(50),ForeignKey(Signup.id))
     visit_at = Column(String(50),ForeignKey(New_store.sname))
-    visit_date = Column(String(20), default=date.today(), nullable=False)
+    visit_date = Column(String(20), default=datetime.now(), nullable=False)
